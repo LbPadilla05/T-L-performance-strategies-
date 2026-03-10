@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T&L Performance Strategies — Performance-Based Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #faf7f2;
+      --warm-white: #fff9f4;
+      --sand: #efe8dc;
+      --tan: #d4b896;
+      --brown: #8b6f52;
+      --dark: #2c2016;
+      --charcoal: #3d3028;
+      --orange: #d4622a;
+      --orange-light: #e07a45;
+      --orange-pale: #fdf0e8;
+      --text: #3d3028;
+      --text-light: #7a6355;
+      --border: rgba(139,111,82,0.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 60px;
+      background: rgba(250,247,242,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta {
+      background: var(--orange) !important;
+      color: white !important;
+      padding: 10px 26px !important;
+      border-radius: 50px !important;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--warm-white);
+    }
+    .hero-blob {
+      position: absolute; top: -80px; right: -120px;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(212,98,42,0.09) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-blob-2 {
+      position: absolute; bottom: -100px; left: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(212,184,150,0.15) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-inner { max-width: 780px; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange-pale);
+      border: 1px solid rgba(212,98,42,0.2);
+      color: var(--orange);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 18px; border-radius: 50px; margin-bottom: 36px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--orange); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 8vw, 108px);
+      font-weight: 700; line-height: 1.0;
+      color: var(--dark); margin-bottom: 32px;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); }
+    .hero-sub {
+      font-size: 18px; color: var(--text-light);
+      max-width: 520px; line-height: 1.75; margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: white; text-decoration: none;
+      font-size: 15px; font-weight: 600; padding: 16px 36px;
+      border-radius: 50px; transition: all 0.25s; border: none; cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn-primary:hover {
+      background: var(--orange-light); transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(212,98,42,0.28);
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--text); text-decoration: none;
+      font-size: 15px; font-weight: 500; padding: 15px 32px;
+      border-radius: 50px; border: 1.5px solid var(--border); transition: all 0.25s;
+    }
+    .btn-outline:hover { border-color: var(--tan); background: var(--sand); }
+
+    .trust-bar {
+      background: var(--dark); padding: 20px 60px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500;
+    }
+    .trust-item .dot {
+      width: 5px; height: 5px; background: var(--orange);
+      border-radius: 50%; flex-shrink: 0;
+    }
+
+    .marquee-wrap {
+      background: var(--sand);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      overflow: hidden; padding: 14px 0;
+    }
+    .marquee {
+      display: flex; gap: 48px;
+      animation: marquee 22s linear infinite; white-space: nowrap;
+    }
+    .marquee span {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light);
+    }
+    .marquee span.dot { color: var(--orange); font-size: 8px; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    section { padding: 100px 60px; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--orange); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 20px; height: 2px;
+      background: var(--orange); border-radius: 2px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 62px); font-weight: 700;
+      line-height: 1.1; color: var(--dark); margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 16px; color: var(--text-light); max-width: 520px; line-height: 1.8;
+    }
+
+    #services { background: var(--warm-white); }
+    .services-intro {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 60px; gap: 40px; flex-wrap: wrap;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
+    }
+    .service-card {
+      background: var(--cream); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 40px 36px;
+      position: relative; transition: all 0.3s; overflow: hidden;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(44,32,22,0.08); border-color: var(--tan);
+    }
+    .service-icon {
+      width: 52px; height: 52px; background: var(--orange-pale);
+      border-radius: 14px; display: flex; align-items: center;
+      justify-content: center; font-size: 22px; margin-bottom: 24px;
+    }
+    .service-badge {
+      position: absolute; top: 24px; right: 24px;
+      background: var(--orange); color: white;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 50px;
+    }
+    .service-badge.free { background: #2d7a4f; }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+      color: var(--dark); margin-bottom: 12px; line-height: 1.25;
+    }
+    .service-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
+
+    #pricing { background: var(--dark); color: white; position: relative; overflow: hidden; }
+    #pricing::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(212,98,42,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #pricing .section-title { color: white; }
+    #pricing .section-body { color: rgba(255,255,255,0.55); }
+    .pricing-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; margin-top: 60px; align-items: start;
+    }
+    .pricing-cards { display: flex; flex-direction: column; gap: 24px; }
+    .pricing-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 36px 40px;
+      position: relative; overflow: hidden;
+    }
+    .pricing-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--tan));
+      border-radius: 20px 20px 0 0;
+    }
+    .price-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--tan); margin-bottom: 12px;
+    }
+    .price-big {
+      font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700;
+      color: white; line-height: 1; margin-bottom: 6px;
+    }
+    .price-big sup { font-size: 32px; vertical-align: top; margin-top: 14px; }
+    .price-note { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .price-features li {
+      font-size: 14px; color: rgba(255,255,255,0.6);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .price-features li::before { content: '✓'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
+    .manifesto-block {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 28px; padding-left: 20px;
+    }
+    .manifesto-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 46px); font-style: italic;
+      line-height: 1.25; color: white;
+    }
+    .manifesto-quote strong { font-style: normal; color: var(--orange); }
+    .manifesto-divider { width: 50px; height: 2px; background: var(--orange); border-radius: 2px; }
+    .manifesto-body { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 380px; }
+    .tagline-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(212,98,42,0.15); border: 1px solid rgba(212,98,42,0.3);
+      color: var(--orange-light); font-family: 'Playfair Display', serif;
+      font-size: 18px; font-style: italic; padding: 14px 24px;
+      border-radius: 14px; width: fit-content;
+    }
+
+    #niches { background: var(--sand); }
+    .niche-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 56px;
+    }
+    .niche-card {
+      background: var(--warm-white); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 44px 36px; transition: all 0.3s;
+    }
+    .niche-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,32,22,0.09); }
+    .niche-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+    .niche-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+      color: var(--dark); margin-bottom: 12px;
+    }
+    .niche-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
+
+    #founders { background: var(--warm-white); }
+    .founders-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 60px;
+    }
+    .founder-card {
+      background: var(--cream); border: 1.5px solid var(--border);
+      border-radius: 24px; padding: 52px 48px;
+      position: relative; overflow: hidden; transition: all 0.3s;
+    }
+    .founder-card:hover { transform: translateY(-3px); box-shadow: 0 18px 48px rgba(44,32,22,0.08); }
+    .founder-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--orange), var(--tan));
+      border-radius: 0 0 24px 24px;
+    }
+    .founder-avatar {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--tan));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+      color: white; margin-bottom: 24px;
+    }
+    .founder-name {
+      font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
+      color: var(--dark); line-height: 1.1; margin-bottom: 6px;
+    }
+    .founder-role {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
+    }
+    .founder-bio { font-size: 15px; color: var(--text-light); line-height: 1.8; max-width: 360px; }
+
+    #booking {
+      background: var(--orange); color: white;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    #booking::before {
+      content: ''; position: absolute; top: -150px; right: -150px;
+      width: 400px; height: 400px; background: rgba(255,255,255,0.06); border-radius: 50%;
+    }
+    #booking::after {
+      content: ''; position: absolute; bottom: -100px; left: -80px;
+      width: 300px; height: 300px; background: rgba(0,0,0,0.06); border-radius: 50%;
+    }
+    #booking .section-eyebrow { color: rgba(255,255,255,0.75); justify-content: center; }
+    #booking .section-eyebrow::before { background: rgba(255,255,255,0.75); }
+    #booking .section-title { color: white; font-size: clamp(40px, 6vw, 72px); }
+    .booking-sub {
+      font-size: 17px; color: rgba(255,255,255,0.75); max-width: 500px;
+      margin: 0 auto 48px; line-height: 1.75;
+    }
+    .booking-form {
+      background: white; border-radius: 24px; padding: 52px 48px;
+      max-width: 600px; margin: 0 auto; text-align: left;
+      position: relative; z-index: 1;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-light);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--cream); border: 1.5px solid var(--border);
+      color: var(--text); padding: 13px 18px;
+      font-family: 'Nunito', sans-serif; font-size: 14px; outline: none;
+      border-radius: 12px; transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--tan); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--orange); box-shadow: 0 0 0 3px rgba(212,98,42,0.1);
+    }
+    .form-group select option { background: white; color: var(--text); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .btn-submit {
+      width: 100%; background: var(--orange); color: white; border: none;
+      font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
+      padding: 17px 32px; border-radius: 50px; cursor: pointer; transition: all 0.25s; margin-top: 8px;
+    }
+    .btn-submit:hover {
+      background: var(--orange-light); transform: translateY(-1px);
+      box-shadow: 0 10px 32px rgba(212,98,42,0.3);
+    }
+    .success-msg {
+      display: none; text-align: center; padding: 48px 24px;
+      font-family: 'Playfair Display', serif; font-size: 26px;
+      font-style: italic; color: var(--dark);
+    }
+
+    footer {
+      background: var(--dark); padding: 56px 60px 40px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 32px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: white;
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 6px; }
+    .footer-names { font-size: 13px; color: rgba(255,255,255,0.4); text-align: right; line-height: 1.85; }
+    .footer-names strong { color: rgba(255,255,255,0.7); font-weight: 600; }
+
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.8s ease 0.2s both; }
+    .hero h1 { animation: fadeUp 0.9s ease 0.35s both; }
+    .hero-sub { animation: fadeUp 0.9s ease 0.5s both; }
+    .hero-actions { animation: fadeUp 0.9s ease 0.62s both; }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      section { padding: 72px 24px; }
+      .services-intro { flex-direction: column; }
+      .pricing-layout { grid-template-columns: 1fr; }
+      .manifesto-block { padding-left: 0; }
+      .niche-grid { grid-template-columns: 1fr 1fr; }
+      .founders-layout { grid-template-columns: 1fr; }
+      .booking-form { padding: 36px 24px; }
+      #booking { padding: 72px 24px; }
+      footer { padding: 40px 24px 32px; }
+      .footer-names { text-align: left; }
+      .trust-bar { padding: 16px 24px; gap: 20px; }
+    }
+    @media (max-width: 600px) {
+      .niche-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">T<span>&</span>L Performance Strategies</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#niches">Who We Serve</a></li>
+      <li><a href="#founders">About Us</a></li>
+      <li><a href="#booking" class="nav-cta">Book a Call</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-blob"></div>
+    <div class="hero-blob-2"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Performance-Based Growth Agency</div>
+      <h1>We Only Win<br/>If <em>You</em> Win.</h1>
+      <p class="hero-sub">No retainers. No agency fees upfront. You cover your ad spend — we handle everything else on pure performance. T&L Performance Strategies only gets paid when you do.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn-primary">Book Audit Call →</a>
+        <a href="#services" class="btn-outline">See What We Do</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-bar">
+    <div class="trust-item"><span class="dot"></span>You Control Your Ad Spend</div>
+    <div class="trust-item"><span class="dot"></span>Zero Agency Fees Upfront</div>
+    <div class="trust-item"><span class="dot"></span>8% Commission on Closed Revenue</div>
+    <div class="trust-item"><span class="dot"></span>HVAC · Flooring · Service Businesses</div>
+    <div class="trust-item"><span class="dot"></span>Free Audit Included</div>
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>HVAC</span><span class="dot">✦</span><span>Flooring</span><span class="dot">✦</span>
+      <span>Service Businesses</span><span class="dot">✦</span><span>Zero Retainer</span><span class="dot">✦</span>
+      <span>Performance Only</span><span class="dot">✦</span><span>Qualified Leads</span><span class="dot">✦</span>
+      <span>Free Audit</span><span class="dot">✦</span>
+      <span>HVAC</span><span class="dot">✦</span><span>Flooring</span><span class="dot">✦</span>
+      <span>Service Businesses</span><span class="dot">✦</span><span>Zero Retainer</span><span class="dot">✦</span>
+      <span>Performance Only</span><span class="dot">✦</span><span>Qualified Leads</span><span class="dot">✦</span>
+      <span>Free Audit</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="services-intro">
+      <div>
+        <div class="section-eyebrow reveal">What We Offer</div>
+        <h2 class="section-title reveal reveal-delay-1">Built to Convert.<br/>Designed to Scale.</h2>
+      </div>
+      <p class="section-body reveal reveal-delay-2">Every service is engineered around one goal: turning ad spend into booked jobs and real closed revenue.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🎯</div>
+        <div class="service-badge free">Free</div>
+        <h3>Landing Page Optimization</h3>
+        <p>We audit and rebuild your landing pages to eliminate friction and dramatically improve lead conversion — turning visitors into booked calls.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">📣</div>
+        <div class="service-badge">Core</div>
+        <h3>Targeted Ad Creation</h3>
+        <p>Precision-crafted ad creatives and copy built specifically for your niche. We know your customer better than your competition does.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">📈</div>
+        <div class="service-badge">Core</div>
+        <h3>Full Campaign Management</h3>
+        <p>End-to-end campaign management across Meta and Google. We handle strategy, targeting, and optimization so you can focus on the work.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">🔍</div>
+        <div class="service-badge free">Free</div>
+        <h3>Free Business Audit</h3>
+        <p>Before we pitch you anything, we do a deep dive into your current marketing and conversion gaps — then show you exactly what's being left on the table.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="section-eyebrow reveal">Transparent Pricing</div>
+    <h2 class="section-title reveal reveal-delay-1">No Upfront. Ever.</h2>
+    <div class="pricing-layout">
+      <div class="pricing-cards reveal reveal-delay-1">
+        <div class="pricing-card">
+          <p class="price-label">Per Qualified Lead</p>
+          <div class="price-big"><sup>$</sup>80</div>
+          <p class="price-note">Flat rate, per verified lead delivered</p>
+          <ul class="price-features">
+            <li>Only pay for verified, qualifying leads</li>
+            <li>Qualification criteria agreed upfront</li>
+            <li>No charge for unqualified inquiries</li>
+            <li>You retain full control of your ad budget</li>
+          </ul>
+          <p style="margin-top:20px; font-size:12px; color:rgba(255,255,255,0.3); line-height:1.6;">* Clients are responsible for their own ad spend. T&L charges no agency retainer — only performance fees above.</p>
+        </div>
+        <div class="pricing-card">
+          <p class="price-label">Closed Revenue Commission</p>
+          <div class="price-big">8<span style="font-size:36px;vertical-align:top;margin-top:18px;display:inline-block;">%</span></div>
+          <p class="price-note">Of every job closed from our leads</p>
+          <ul class="price-features">
+            <li>Only on revenue we directly generate</li>
+            <li>Tracked transparently, invoiced monthly</li>
+            <li>No hidden charges or surprise fees</li>
+          </ul>
+        </div>
+      </div>
+      <div class="manifesto-block reveal reveal-delay-2">
+        <div class="manifesto-quote">We put our money where our mouth is —&nbsp;<strong>strictly performance.</strong></div>
+        <div class="manifesto-divider"></div>
+        <p class="manifesto-body">You cover your ad spend — that's it. No retainer, no setup fee, no agency fees until results hit. Our entire model is built around shared risk: we only earn when your pipeline grows. That's the only way we know how to operate.</p>
+        <div class="tagline-badge">"We only win if you win."</div>
+        <a href="#booking" class="btn-primary" style="width:fit-content;margin-top:8px;">Book a Call →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="niches">
+    <div class="section-eyebrow reveal">Who We Serve</div>
+    <h2 class="section-title reveal reveal-delay-1">Specialists,<br/>Not Generalists.</h2>
+    <p class="section-body reveal reveal-delay-2">We go deep in specific trades and service industries — which means we know exactly what makes your customers call.</p>
+    <div class="niche-grid">
+      <div class="niche-card reveal">
+        <span class="niche-icon">❄️</span>
+        <h3>HVAC Companies</h3>
+        <p>Heating, cooling, and air quality businesses. We know the seasonal spikes, urgency triggers, and how to generate emergency service calls on demand.</p>
+      </div>
+      <div class="niche-card reveal reveal-delay-1">
+        <span class="niche-icon">🏠</span>
+        <h3>Flooring Businesses</h3>
+        <p>Installation, hardwood, tile, and LVP contractors. We target homeowners mid-renovation and turn browse intent into in-home quote requests.</p>
+      </div>
+      <div class="niche-card reveal reveal-delay-2">
+        <span class="niche-icon">🔧</span>
+        <h3>Service-Based Businesses</h3>
+        <p>Plumbing, electrical, roofing, landscaping, and beyond. If you sell your expertise and time, we build the system that keeps your calendar full.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="founders">
+    <div class="section-eyebrow reveal">The Founders</div>
+    <h2 class="section-title reveal reveal-delay-1">Two Founders,<br/>One Vision.</h2>
+    <div class="founders-layout">
+      <div class="founder-card reveal">
+        <div class="founder-avatar">LP</div>
+        <div class="founder-name">Logan B. Padilla</div>
+        <div class="founder-role">Founder & Partner</div>
+        <p class="founder-bio">Logan is one of the two minds behind T&L Performance Strategies. He co-created the performance-based model from the ground up and leads growth strategy and campaign operations — making sure every client sees real, measurable results.</p>
+      </div>
+      <div class="founder-card reveal reveal-delay-1">
+        <div class="founder-avatar">TK</div>
+        <div class="founder-name">Tristan J. Kelly</div>
+        <div class="founder-role">Founder & Partner</div>
+        <p class="founder-bio">Tristan co-founded T&L alongside Logan, helping shape the vision of an agency that only wins when its clients do. He leads the creative and client experience side — building ad systems and funnels that convert at a level most agencies can't touch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking">
+    <div class="section-eyebrow">Get Started</div>
+    <h2 class="section-title">Book Your Audit Call.</h2>
+    <p class="booking-sub">Drop your details below and we'll reach out within 24 hours to schedule your free audit call. No pressure, no pitch — just a straight conversation about your business.</p>
+    <div class="booking-form">
+      <form id="contactForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@company.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="(555) 000-0000" required />
+          </div>
+          <div class="form-group full">
+            <label for="business">Business Name</label>
+            <input type="text" id="business" placeholder="Your company name" required />
+          </div>
+          <div class="form-group full">
+            <label for="niche">Industry</label>
+            <select id="niche" required>
+              <option value="" disabled selected>Select your industry</option>
+              <option>HVAC</option>
+              <option>Flooring</option>
+              <option>Plumbing</option>
+              <option>Electrical</option>
+              <option>Roofing</option>
+              <option>Landscaping</option>
+              <option>Other Service Business</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Book My Audit Call →</button>
+        <p style="text-align:center; font-size:12px; color:var(--text-light); margin-top:16px; line-height:1.6;">We'll reach out within <strong>24 hours</strong> to schedule your call. No spam, ever.</p>
+      </form>
+      <div class="success-msg" id="successMsg">🎉 You're all set! We'll be in touch within 24 hours to book your audit call.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-logo">T<span>&</span>L Performance Strategies</div>
+      <div class="footer-tagline">Performance-based marketing for service businesses</div>
+    </div>
+    <div class="footer-names">
+      <strong>Logan B. Padilla</strong> & <strong>Tristan J. Kelly</strong><br/>
+      Founders<br/><br/>
+      <span style="font-size:11px;opacity:0.6;">© 2025 T&L Performance Strategies. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
