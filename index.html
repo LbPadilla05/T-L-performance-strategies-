@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>T&L Performance Strategies — Performance-Based Marketing</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1a1a' rx='12'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4622a'/%3E%3Cstop offset='100%25' stop-color='%23f0a500'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='50' y='68' font-family='Arial Black,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='url(%23g)'%3ET%26L%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -46,12 +47,11 @@
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--dark);
       text-decoration: none;
+      display: flex;
+      align-items: center;
     }
+    .nav-logo svg { height: 36px; width: auto; }
     .nav-logo span { color: var(--orange); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
@@ -456,7 +456,19 @@
 <body>
 
   <nav>
-    <a href="#" class="nav-logo">T<span>&</span>L Performance Strategies</a>
+    <a href="#" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" height="36">
+        <defs>
+          <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#d4622a"/>
+            <stop offset="100%" style="stop-color:#f0a500"/>
+          </linearGradient>
+        </defs>
+        <text x="0" y="36" font-family="Arial Black, Impact, sans-serif" font-size="38" font-weight="900" fill="url(#navGrad)" letter-spacing="1">T&amp;L</text>
+        <text x="98" y="24" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#3d3028" letter-spacing="2">PERFORMANCE</text>
+        <text x="98" y="38" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#3d3028" letter-spacing="2">STRATEGIES</text>
+      </svg>
+    </a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
@@ -483,7 +495,7 @@
   <div class="trust-bar">
     <div class="trust-item"><span class="dot"></span>You Control Your Ad Spend</div>
     <div class="trust-item"><span class="dot"></span>Zero Agency Fees Upfront</div>
-    <div class="trust-item"><span class="dot"></span>8% Commission on Closed Revenue</div>
+    <div class="trust-item"><span class="dot"></span>10% Commission on Closed Revenue</div>
     <div class="trust-item"><span class="dot"></span>HVAC · Flooring · Service Businesses</div>
     <div class="trust-item"><span class="dot"></span>Free Audit Included</div>
   </div>
@@ -556,7 +568,7 @@
         </div>
         <div class="pricing-card">
           <p class="price-label">Closed Revenue Commission</p>
-          <div class="price-big">8<span style="font-size:36px;vertical-align:top;margin-top:18px;display:inline-block;">%</span></div>
+          <div class="price-big">10<span style="font-size:36px;vertical-align:top;margin-top:18px;display:inline-block;">%</span></div>
           <p class="price-note">Of every job closed from our leads</p>
           <ul class="price-features">
             <li>Only on revenue we directly generate</li>
