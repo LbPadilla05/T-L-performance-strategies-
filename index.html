@@ -28,6 +28,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       BOOKING CONFIG — EDIT THIS ONE LINE ONLY
+
+       In GoHighLevel: Calendars → your calendar → ⋯ → Share →
+       Embed Code tab. Copy the src="..." URL out of the iframe
+       it gives you and paste it below. It looks like:
+       https://api.leadconnectorhq.com/widget/booking/AbC123XyZ
+       ============================================================ -->
+  <script>
+    window.TL_BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/REPLACE_WITH_YOUR_CALENDAR_ID";
+  </script>
+
+  <!-- GHL embed helper: auto-resizes the booking iframe to fit its content -->
+  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+
   <style>
     :root {
       --cream: #faf7f2;
@@ -90,7 +106,6 @@
       font-weight: 600 !important;
     }
     .nav-cta:hover { background: var(--orange-light) !important; }
-
     .hero {
       min-height: 100vh;
       display: flex;
@@ -161,7 +176,6 @@
       border-radius: 50px; border: 1.5px solid var(--border); transition: all 0.25s;
     }
     .btn-outline:hover { border-color: var(--tan); background: var(--sand); }
-
     .trust-bar {
       background: var(--dark); padding: 20px 60px;
       display: flex; align-items: center; justify-content: center;
@@ -175,7 +189,6 @@
       width: 5px; height: 5px; background: var(--orange);
       border-radius: 50%; flex-shrink: 0;
     }
-
     .marquee-wrap {
       background: var(--sand);
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
@@ -194,7 +207,6 @@
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
     }
-
     section { padding: 100px 60px; }
     .section-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
@@ -213,7 +225,6 @@
     .section-body {
       font-size: 16px; color: var(--text-light); max-width: 520px; line-height: 1.8;
     }
-
     #services { background: var(--warm-white); }
     .services-intro {
       display: flex; justify-content: space-between; align-items: flex-end;
@@ -248,7 +259,6 @@
       color: var(--dark); margin-bottom: 12px; line-height: 1.25;
     }
     .service-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
-
     #pricing { background: var(--dark); color: white; position: relative; overflow: hidden; }
     #pricing::before {
       content: ''; position: absolute; top: -200px; right: -200px;
@@ -309,7 +319,6 @@
       font-size: 18px; font-style: italic; padding: 14px 24px;
       border-radius: 14px; width: fit-content;
     }
-
     #niches { background: var(--sand); }
     .niche-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -326,7 +335,6 @@
       color: var(--dark); margin-bottom: 12px;
     }
     .niche-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
-
     #founders { background: var(--warm-white); }
     .founders-layout {
       display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 60px;
@@ -360,6 +368,7 @@
     }
     .founder-bio { font-size: 15px; color: var(--text-light); line-height: 1.8; max-width: 360px; }
 
+    /* ===== BOOKING SECTION ===== */
     #booking {
       background: var(--orange); color: white;
       text-align: center; position: relative; overflow: hidden;
@@ -376,49 +385,46 @@
     #booking .section-eyebrow::before { background: rgba(255,255,255,0.75); }
     #booking .section-title { color: white; font-size: clamp(40px, 6vw, 72px); }
     .booking-sub {
-      font-size: 17px; color: rgba(255,255,255,0.75); max-width: 500px;
-      margin: 0 auto 48px; line-height: 1.75;
+      font-size: 17px; color: rgba(255,255,255,0.75); max-width: 540px;
+      margin: 0 auto 24px; line-height: 1.75;
     }
-    .booking-form {
-      background: white; border-radius: 24px; padding: 52px 48px;
-      max-width: 600px; margin: 0 auto; text-align: left;
-      position: relative; z-index: 1;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+    .booking-perks {
+      display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+      margin: 0 auto 44px; max-width: 700px;
     }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-    .form-group { display: flex; flex-direction: column; gap: 7px; }
-    .form-group.full { grid-column: 1 / -1; }
-    .form-group label {
-      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text-light);
+    .booking-perk {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 18px; border-radius: 50px;
     }
-    .form-group input, .form-group select, .form-group textarea {
-      background: var(--cream); border: 1.5px solid var(--border);
-      color: var(--text); padding: 13px 18px;
-      font-family: 'Nunito', sans-serif; font-size: 14px; outline: none;
-      border-radius: 12px; transition: border-color 0.2s, box-shadow 0.2s;
-      -webkit-appearance: none;
+    .scheduler-shell {
+      background: white; border-radius: 24px; padding: 20px;
+      max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
     }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--tan); }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--orange); box-shadow: 0 0 0 3px rgba(212,98,42,0.1);
+    /* GHL's form_embed.js resizes this iframe to fit its content.
+       min-height stops the section collapsing before that happens. */
+    .scheduler-frame {
+      width: 100%; min-height: 700px; border: 0; border-radius: 14px;
+      display: block; overflow: hidden;
     }
-    .form-group select option { background: white; color: var(--text); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .btn-submit {
-      width: 100%; background: var(--orange); color: white; border: none;
-      font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
-      padding: 17px 32px; border-radius: 50px; cursor: pointer; transition: all 0.25s; margin-top: 8px;
+    .scheduler-fallback {
+      display: none; padding: 56px 32px; text-align: center;
     }
-    .btn-submit:hover {
-      background: var(--orange-light); transform: translateY(-1px);
-      box-shadow: 0 10px 32px rgba(212,98,42,0.3);
-    }
-    .success-msg {
-      display: none; text-align: center; padding: 48px 24px;
+    .scheduler-fallback h3 {
       font-family: 'Playfair Display', serif; font-size: 26px;
-      font-style: italic; color: var(--dark);
+      color: var(--dark); margin-bottom: 12px;
     }
+    .scheduler-fallback p {
+      font-size: 15px; color: var(--text-light); margin-bottom: 28px;
+      max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.7;
+    }
+    .booking-footnote {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      margin-top: 28px; position: relative; z-index: 1;
+    }
+    .booking-footnote a { color: white; font-weight: 600; }
 
     footer {
       background: var(--dark); padding: 56px 60px 40px;
@@ -432,7 +438,6 @@
     .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 6px; }
     .footer-names { font-size: 13px; color: rgba(255,255,255,0.4); text-align: right; line-height: 1.85; }
     .footer-names strong { color: rgba(255,255,255,0.7); font-weight: 600; }
-
     .reveal {
       opacity: 0; transform: translateY(28px);
       transition: opacity 0.65s ease, transform 0.65s ease;
@@ -441,7 +446,6 @@
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(36px); }
       to { opacity: 1; transform: translateY(0); }
@@ -450,7 +454,6 @@
     .hero h1 { animation: fadeUp 0.9s ease 0.35s both; }
     .hero-sub { animation: fadeUp 0.9s ease 0.5s both; }
     .hero-actions { animation: fadeUp 0.9s ease 0.62s both; }
-
     @media (max-width: 900px) {
       nav { padding: 18px 24px; }
       .nav-links { display: none; }
@@ -461,8 +464,9 @@
       .manifesto-block { padding-left: 0; }
       .niche-grid { grid-template-columns: 1fr 1fr; }
       .founders-layout { grid-template-columns: 1fr; }
-      .booking-form { padding: 36px 24px; }
-      #booking { padding: 72px 24px; }
+      #booking { padding: 72px 16px; }
+      .scheduler-shell { padding: 10px; border-radius: 18px; }
+      .scheduler-frame { min-height: 640px; }
       footer { padding: 40px 24px 32px; }
       .footer-names { text-align: left; }
       .trust-bar { padding: 16px 24px; gap: 20px; }
@@ -470,7 +474,8 @@
     @media (max-width: 600px) {
       .niche-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; align-items: flex-start; }
-      .form-grid { grid-template-columns: 1fr; }
+      .booking-perks { gap: 10px; }
+      .booking-perk { font-size: 12px; padding: 7px 14px; }
     }
   </style>
 </head>
@@ -479,7 +484,6 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT5M4ZK4"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-
   <nav>
     <a href="#" class="nav-logo">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" height="36">
@@ -502,7 +506,6 @@
       <li><a href="#booking" class="nav-cta">Book a Call</a></li>
     </ul>
   </nav>
-
   <section class="hero">
     <div class="hero-blob"></div>
     <div class="hero-blob-2"></div>
@@ -511,12 +514,11 @@
       <h1>We Only Win<br/>If <em>You</em> Win.</h1>
       <p class="hero-sub">No retainers. No agency fees upfront. You cover your ad spend — we handle everything else on pure performance. T&L Performance Strategies only gets paid when you do.</p>
       <div class="hero-actions">
-        <a href="#booking" class="btn-primary">Book Audit Call →</a>
+        <a href="#booking" class="btn-primary" data-book-cta>Book Audit Call →</a>
         <a href="#services" class="btn-outline">See What We Do</a>
       </div>
     </div>
   </section>
-
   <div class="trust-bar">
     <div class="trust-item"><span class="dot"></span>You Control Your Ad Spend</div>
     <div class="trust-item"><span class="dot"></span>Zero Agency Fees Upfront</div>
@@ -524,7 +526,6 @@
     <div class="trust-item"><span class="dot"></span>HVAC · Flooring · Service Businesses</div>
     <div class="trust-item"><span class="dot"></span>Free Audit Included</div>
   </div>
-
   <div class="marquee-wrap">
     <div class="marquee">
       <span>HVAC</span><span class="dot">✦</span><span>Flooring</span><span class="dot">✦</span>
@@ -537,7 +538,6 @@
       <span>Free Audit</span><span class="dot">✦</span>
     </div>
   </div>
-
   <section id="services">
     <div class="services-intro">
       <div>
@@ -573,7 +573,6 @@
       </div>
     </div>
   </section>
-
   <section id="pricing">
     <div class="section-eyebrow reveal">Transparent Pricing</div>
     <h2 class="section-title reveal reveal-delay-1">No Upfront. Ever.</h2>
@@ -607,11 +606,10 @@
         <div class="manifesto-divider"></div>
         <p class="manifesto-body">You cover your ad spend — that's it. No retainer, no setup fee, no agency fees until results hit. Our entire model is built around shared risk: we only earn when your pipeline grows. That's the only way we know how to operate.</p>
         <div class="tagline-badge">"We only win if you win."</div>
-        <a href="#booking" class="btn-primary" style="width:fit-content;margin-top:8px;">Book a Call →</a>
+        <a href="#booking" class="btn-primary" style="width:fit-content;margin-top:8px;" data-book-cta>Book a Call →</a>
       </div>
     </div>
   </section>
-
   <section id="niches">
     <div class="section-eyebrow reveal">Who We Serve</div>
     <h2 class="section-title reveal reveal-delay-1">Specialists,<br/>Not Generalists.</h2>
@@ -634,7 +632,6 @@
       </div>
     </div>
   </section>
-
   <section id="founders">
     <div class="section-eyebrow reveal">The Founders</div>
     <h2 class="section-title reveal reveal-delay-1">Two Founders,<br/>One Vision.</h2>
@@ -654,52 +651,39 @@
     </div>
   </section>
 
+  <!-- ===== BOOKING: GoHighLevel calendar (Zoom auto-attached) ===== -->
   <section id="booking">
     <div class="section-eyebrow">Get Started</div>
     <h2 class="section-title">Book Your Audit Call.</h2>
-    <p class="booking-sub">Drop your details below and we'll reach out within 24 hours to schedule your free audit call. No pressure, no pitch — just a straight conversation about your business.</p>
-    <div class="booking-form">
-      <form id="contactForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" placeholder="John" required />
-          </div>
-          <div class="form-group">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" placeholder="Smith" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="john@company.com" required />
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="(555) 000-0000" required />
-          </div>
-          <div class="form-group full">
-            <label for="business">Business Name</label>
-            <input type="text" id="business" placeholder="Your company name" required />
-          </div>
-          <div class="form-group full">
-            <label for="niche">Industry</label>
-            <select id="niche" required>
-              <option value="" disabled selected>Select your industry</option>
-              <option>HVAC</option>
-              <option>Flooring</option>
-              <option>Plumbing</option>
-              <option>Electrical</option>
-              <option>Roofing</option>
-              <option>Landscaping</option>
-              <option>Other Service Business</option>
-            </select>
-          </div>
-        </div>
-        <button type="submit" class="btn-submit">Book My Audit Call →</button>
-        <p style="text-align:center; font-size:12px; color:var(--text-light); margin-top:16px; line-height:1.6;">We'll reach out within <strong>24 hours</strong> to schedule your call. No spam, ever.</p>
-      </form>
-      <div class="success-msg" id="successMsg">🎉 You're all set! Redirecting you to book your call time now...</div>
+    <p class="booking-sub">Pick a time that works for you below. You'll get a calendar invite with your Zoom link the second you book — no back-and-forth, no pitch, just a straight conversation about your business.</p>
+    <div class="booking-perks">
+      <div class="booking-perk">⏱️ 30 minutes</div>
+      <div class="booking-perk">🎥 Over Zoom</div>
+      <div class="booking-perk">💸 Completely free</div>
+      <div class="booking-perk">🚫 No obligation</div>
     </div>
+
+    <div class="scheduler-shell">
+      <!-- Google Calendar booking page, embedded -->
+      <iframe
+        id="schedulerFrame"
+        class="scheduler-frame"
+        title="Book an audit call with T&L Performance Strategies"
+        scrolling="no"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      <!-- Shown if the embed can't load (blocked cookies, old browser, etc.) -->
+      <div class="scheduler-fallback" id="schedulerFallback">
+        <h3>Book your audit call</h3>
+        <p>Our scheduler couldn't load in this browser. Click below to open the booking page in a new tab.</p>
+        <a href="#" class="btn-primary" id="fallbackBtn" target="_blank" rel="noopener">Open Booking Page →</a>
+      </div>
+    </div>
+
+    <p class="booking-footnote">
+      Can't find a time that works? Email us at
+      <a href="mailto:logan@tlperformancestrategies.com">logan@tlperformancestrategies.com</a>
+    </p>
   </section>
 
   <footer>
@@ -715,20 +699,89 @@
   </footer>
 
   <script>
+    /* ---------- Scroll reveal ---------- */
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     reveals.forEach(el => observer.observe(el));
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      this.style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-      setTimeout(function() {
-        window.location.href = 'https://calendly.com/logan-tlperformancestrategies/30min';
-      }, 2000);
+    /* ---------- Google Calendar scheduler ---------- */
+    (function () {
+      const base = (window.TL_BOOKING_URL || '').trim();
+      const frame = document.getElementById('schedulerFrame');
+      const fallback = document.getElementById('schedulerFallback');
+      const fallbackBtn = document.getElementById('fallbackBtn');
+
+      const isConfigured = base && base.indexOf('REPLACE_WITH_YOUR_CALENDAR_ID') === -1;
+
+      if (!isConfigured) {
+        // Not set up yet — show the fallback card so the section never looks broken.
+        frame.style.display = 'none';
+        fallback.style.display = 'block';
+        fallbackBtn.textContent = 'Booking page coming soon';
+        fallbackBtn.removeAttribute('href');
+        return;
+      }
+
+      // Pass ad-tracking params through to GHL so bookings are attributable
+      // to the campaign that produced them (shows on the contact record).
+      const passThrough = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+        'gclid', 'fbclid'
+      ];
+      const pageParams = new URLSearchParams(window.location.search);
+      const bookingParams = new URLSearchParams();
+      passThrough.forEach(function (key) {
+        const val = pageParams.get(key);
+        if (val) bookingParams.set(key, val);
+      });
+
+      const query = bookingParams.toString();
+      const fullUrl = query
+        ? base + (base.indexOf('?') === -1 ? '?' : '&') + query
+        : base;
+
+      frame.src = fullUrl;
+      fallbackBtn.href = fullUrl;
+
+      // If the iframe never loads within 6s, reveal the fallback link instead.
+      let loaded = false;
+      frame.addEventListener('load', function () { loaded = true; });
+      setTimeout(function () {
+        if (!loaded) {
+          frame.style.display = 'none';
+          fallback.style.display = 'block';
+        }
+      }, 6000);
+    })();
+
+    /* ---------- Conversion tracking ----------
+       The embedded scheduler is cross-origin, so the page can't detect a
+       completed booking. We fire an "intent" event when someone clicks a
+       Book CTA or interacts with the scheduler. Track the ACTUAL booking as
+       a conversion by importing it from Google Calendar (see setup guide).   */
+    function trackBookingIntent(source) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'booking_intent', booking_source: source });
+    }
+
+    document.querySelectorAll('[data-book-cta]').forEach(function (el) {
+      el.addEventListener('click', function () { trackBookingIntent('cta_button'); });
     });
+
+    // Clicking into a cross-origin iframe blurs the window — a decent proxy
+    // for "started booking". Fires once.
+    (function () {
+      let fired = false;
+      window.addEventListener('blur', function () {
+        if (fired) return;
+        if (document.activeElement && document.activeElement.id === 'schedulerFrame') {
+          fired = true;
+          trackBookingIntent('scheduler_embed');
+        }
+      });
+    })();
   </script>
 </body>
 </html>
