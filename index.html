@@ -38,11 +38,8 @@
        https://api.leadconnectorhq.com/widget/booking/AbC123XyZ
        ============================================================ -->
   <script>
-    window.TL_BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/REPLACE_WITH_YOUR_CALENDAR_ID";
+    window.TL_BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/oSWxIhhnD0XZzSgeSyxL";
   </script>
-
-  <!-- GHL embed helper: auto-resizes the booking iframe to fit its content -->
-  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 
   <style>
     :root {
@@ -403,22 +400,16 @@
       max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
       box-shadow: 0 30px 80px rgba(0,0,0,0.18);
     }
-    /* GHL's form_embed.js resizes this iframe to fit its content.
-       min-height stops the section collapsing before that happens. */
-    .scheduler-frame {
-      width: 100%; min-height: 700px; border: 0; border-radius: 14px;
-      display: block; overflow: hidden;
+    .booking-cta {
+      padding: 72px 32px; text-align: center;
     }
-    .scheduler-fallback {
-      display: none; padding: 56px 32px; text-align: center;
+    .booking-cta h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 42px); font-weight: 700;
+      color: var(--dark); margin-bottom: 36px; line-height: 1.15;
     }
-    .scheduler-fallback h3 {
-      font-family: 'Playfair Display', serif; font-size: 26px;
-      color: var(--dark); margin-bottom: 12px;
-    }
-    .scheduler-fallback p {
-      font-size: 15px; color: var(--text-light); margin-bottom: 28px;
-      max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.7;
+    .btn-book-now {
+      font-size: 17px; padding: 20px 56px;
     }
     .booking-footnote {
       font-size: 13px; color: rgba(255,255,255,0.7);
@@ -466,7 +457,7 @@
       .founders-layout { grid-template-columns: 1fr; }
       #booking { padding: 72px 16px; }
       .scheduler-shell { padding: 10px; border-radius: 18px; }
-      .scheduler-frame { min-height: 640px; }
+      .booking-cta { padding: 52px 20px; }
       footer { padding: 40px 24px 32px; }
       .footer-names { text-align: left; }
       .trust-bar { padding: 16px 24px; gap: 20px; }
@@ -655,7 +646,7 @@
   <section id="booking">
     <div class="section-eyebrow">Get Started</div>
     <h2 class="section-title">Book Your Audit Call.</h2>
-    <p class="booking-sub">Pick a time that works for you below. You'll get a calendar invite with your Zoom link the second you book — no back-and-forth, no pitch, just a straight conversation about your business.</p>
+    <p class="booking-sub">You'll get a calendar invite with your Zoom link the second you book — no back-and-forth, no pitch, just a straight conversation about your business.</p>
     <div class="booking-perks">
       <div class="booking-perk">⏱️ 30 minutes</div>
       <div class="booking-perk">🎥 Over Zoom</div>
@@ -664,25 +655,15 @@
     </div>
 
     <div class="scheduler-shell">
-      <!-- Google Calendar booking page, embedded -->
-      <iframe
-        id="schedulerFrame"
-        class="scheduler-frame"
-        title="Book an audit call with T&L Performance Strategies"
-        scrolling="no"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-      <!-- Shown if the embed can't load (blocked cookies, old browser, etc.) -->
-      <div class="scheduler-fallback" id="schedulerFallback">
+      <div class="booking-cta">
         <h3>Book your audit call</h3>
-        <p>Our scheduler couldn't load in this browser. Click below to open the booking page in a new tab.</p>
-        <a href="#" class="btn-primary" id="fallbackBtn" target="_blank" rel="noopener">Open Booking Page →</a>
+        <a href="#" class="btn-primary btn-book-now" id="bookNowBtn" target="_blank" rel="noopener">Book Now</a>
       </div>
     </div>
 
     <p class="booking-footnote">
       Can't find a time that works? Email us at
-      <a href="mailto:logan@tlperformancestrategies.com">logan@tlperformancestrategies.com</a>
+      <a href="mailto:lt@tlperformancestrategies.com">lt@tlperformancestrategies.com</a>
     </p>
   </section>
 
@@ -706,26 +687,20 @@
     }, { threshold: 0.1 });
     reveals.forEach(el => observer.observe(el));
 
-    /* ---------- Google Calendar scheduler ---------- */
+    /* ---------- Booking button ----------
+       Points "Book Now" at the GoHighLevel booking page, forwarding any
+       ad-tracking params so bookings are attributable on the contact record. */
     (function () {
       const base = (window.TL_BOOKING_URL || '').trim();
-      const frame = document.getElementById('schedulerFrame');
-      const fallback = document.getElementById('schedulerFallback');
-      const fallbackBtn = document.getElementById('fallbackBtn');
+      const btn = document.getElementById('bookNowBtn');
+      if (!btn) return;
 
-      const isConfigured = base && base.indexOf('REPLACE_WITH_YOUR_CALENDAR_ID') === -1;
-
-      if (!isConfigured) {
-        // Not set up yet — show the fallback card so the section never looks broken.
-        frame.style.display = 'none';
-        fallback.style.display = 'block';
-        fallbackBtn.textContent = 'Booking page coming soon';
-        fallbackBtn.removeAttribute('href');
+      if (!base || base.indexOf('REPLACE_WITH_YOUR_CALENDAR_ID') !== -1) {
+        btn.textContent = 'Booking page coming soon';
+        btn.removeAttribute('href');
         return;
       }
 
-      // Pass ad-tracking params through to GHL so bookings are attributable
-      // to the campaign that produced them (shows on the contact record).
       const passThrough = [
         'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
         'gclid', 'fbclid'
@@ -738,29 +713,15 @@
       });
 
       const query = bookingParams.toString();
-      const fullUrl = query
+      btn.href = query
         ? base + (base.indexOf('?') === -1 ? '?' : '&') + query
         : base;
-
-      frame.src = fullUrl;
-      fallbackBtn.href = fullUrl;
-
-      // If the iframe never loads within 6s, reveal the fallback link instead.
-      let loaded = false;
-      frame.addEventListener('load', function () { loaded = true; });
-      setTimeout(function () {
-        if (!loaded) {
-          frame.style.display = 'none';
-          fallback.style.display = 'block';
-        }
-      }, 6000);
     })();
 
     /* ---------- Conversion tracking ----------
-       The embedded scheduler is cross-origin, so the page can't detect a
-       completed booking. We fire an "intent" event when someone clicks a
-       Book CTA or interacts with the scheduler. Track the ACTUAL booking as
-       a conversion by importing it from Google Calendar (see setup guide).   */
+       Booking completes on GoHighLevel, so this page can't see it directly.
+       We fire an "intent" event on click; track the ACTUAL booking as a
+       conversion from GHL (see setup guide).                                */
     function trackBookingIntent(source) {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'booking_intent', booking_source: source });
@@ -770,18 +731,10 @@
       el.addEventListener('click', function () { trackBookingIntent('cta_button'); });
     });
 
-    // Clicking into a cross-origin iframe blurs the window — a decent proxy
-    // for "started booking". Fires once.
-    (function () {
-      let fired = false;
-      window.addEventListener('blur', function () {
-        if (fired) return;
-        if (document.activeElement && document.activeElement.id === 'schedulerFrame') {
-          fired = true;
-          trackBookingIntent('scheduler_embed');
-        }
-      });
-    })();
+    const bookNow = document.getElementById('bookNowBtn');
+    if (bookNow) {
+      bookNow.addEventListener('click', function () { trackBookingIntent('book_now'); });
+    }
   </script>
 </body>
 </html>
