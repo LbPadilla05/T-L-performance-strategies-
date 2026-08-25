@@ -19,6 +19,7 @@
   <!-- End Google tag -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Performance-based marketing for HVAC, flooring, and service businesses. No retainers, no upfront agency fees — you pay only for qualified leads and closed revenue." />
   <title>T&L Performance Strategies — Performance-Based Marketing</title>
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -28,10 +29,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
   <!-- ============================================================
        BOOKING CONFIG — EDIT THIS ONE LINE ONLY
-
        In GoHighLevel: Calendars → your calendar → ⋯ → Share →
        Embed Code tab. Copy the src="..." URL out of the iframe
        it gives you and paste it below. It looks like:
@@ -40,7 +39,6 @@
   <script>
     window.TL_BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/oSWxIhhnD0XZzSgeSyxL";
   </script>
-
   <style>
     :root {
       --cream: #faf7f2;
@@ -53,9 +51,14 @@
       --orange: #d4622a;
       --orange-light: #e07a45;
       --orange-pale: #fdf0e8;
+      --green: #2f6b4a;
+      --green-pale: #e8f1ec;
       --text: #3d3028;
       --text-light: #7a6355;
       --border: rgba(139,111,82,0.18);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -66,6 +69,18 @@
       font-weight: 400;
       line-height: 1.65;
       overflow-x: hidden;
+    }
+    body.nav-open { overflow: hidden; }
+    .icon {
+      width: 24px; height: 24px;
+      stroke: currentColor; stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round;
+      fill: none; flex-shrink: 0;
+    }
+    .icon-sm { width: 17px; height: 17px; }
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
     }
     nav {
       position: fixed;
@@ -86,7 +101,7 @@
     }
     .nav-logo svg { height: 36px; width: auto; }
     .nav-logo span { color: var(--orange); }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
     .nav-links a {
       color: var(--text-light);
       text-decoration: none;
@@ -98,11 +113,56 @@
     .nav-cta {
       background: var(--orange) !important;
       color: white !important;
-      padding: 10px 26px !important;
-      border-radius: 50px !important;
+      padding: 10px 24px !important;
+      border-radius: var(--radius-sm) !important;
       font-weight: 600 !important;
     }
     .nav-cta:hover { background: var(--orange-light) !important; }
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 9px;
+      cursor: pointer;
+      color: var(--dark);
+      line-height: 0;
+    }
+    .nav-toggle:hover { background: var(--sand); }
+    .nav-toggle .icon-close { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 99;
+      background: var(--cream);
+      padding: 96px 24px 32px;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a.mobile-cta {
+      margin-top: 28px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 20px;
+      padding: 20px 24px;
+    }
     .hero {
       min-height: 100vh;
       display: flex;
@@ -110,99 +170,61 @@
       justify-content: center;
       padding: 120px 60px 80px;
       position: relative;
-      overflow: hidden;
       background: var(--warm-white);
-    }
-    .hero-blob {
-      position: absolute; top: -80px; right: -120px;
-      width: 700px; height: 700px;
-      background: radial-gradient(ellipse, rgba(212,98,42,0.09) 0%, transparent 70%);
-      border-radius: 50%; pointer-events: none;
-    }
-    .hero-blob-2 {
-      position: absolute; bottom: -100px; left: -80px;
-      width: 500px; height: 500px;
-      background: radial-gradient(ellipse, rgba(212,184,150,0.15) 0%, transparent 70%);
-      border-radius: 50%; pointer-events: none;
     }
     .hero-inner { max-width: 780px; position: relative; z-index: 1; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
-      background: var(--orange-pale);
-      border: 1px solid rgba(212,98,42,0.2);
       color: var(--orange);
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 7px 18px; border-radius: 50px; margin-bottom: 36px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 34px;
     }
     .hero-eyebrow::before {
-      content: ''; width: 6px; height: 6px;
-      background: var(--orange); border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+      content: ''; width: 22px; height: 2px;
+      background: var(--orange); border-radius: 2px;
     }
     .hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(52px, 8vw, 108px);
       font-weight: 700; line-height: 1.0;
       color: var(--dark); margin-bottom: 32px;
+      letter-spacing: -0.015em;
     }
     .hero h1 em { font-style: italic; color: var(--orange); }
     .hero-sub {
       font-size: 18px; color: var(--text-light);
       max-width: 520px; line-height: 1.75; margin-bottom: 48px;
     }
-    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 9px;
       background: var(--orange); color: white; text-decoration: none;
-      font-size: 15px; font-weight: 600; padding: 16px 36px;
-      border-radius: 50px; transition: all 0.25s; border: none; cursor: pointer;
+      font-size: 15px; font-weight: 600; padding: 16px 34px;
+      border-radius: var(--radius-sm); transition: background 0.2s, transform 0.2s;
+      border: none; cursor: pointer;
       font-family: 'Nunito', sans-serif;
     }
-    .btn-primary:hover {
-      background: var(--orange-light); transform: translateY(-2px);
-      box-shadow: 0 10px 36px rgba(212,98,42,0.28);
-    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
     .btn-outline {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 9px;
       background: transparent; color: var(--text); text-decoration: none;
-      font-size: 15px; font-weight: 500; padding: 15px 32px;
-      border-radius: 50px; border: 1.5px solid var(--border); transition: all 0.25s;
+      font-size: 15px; font-weight: 500; padding: 15px 30px;
+      border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
     }
     .btn-outline:hover { border-color: var(--tan); background: var(--sand); }
     .trust-bar {
-      background: var(--dark); padding: 20px 60px;
+      background: var(--dark); padding: 22px 60px;
       display: flex; align-items: center; justify-content: center;
       gap: 48px; flex-wrap: wrap;
     }
     .trust-item {
       display: flex; align-items: center; gap: 10px;
-      color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 500;
     }
     .trust-item .dot {
       width: 5px; height: 5px; background: var(--orange);
       border-radius: 50%; flex-shrink: 0;
-    }
-    .marquee-wrap {
-      background: var(--sand);
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      overflow: hidden; padding: 14px 0;
-    }
-    .marquee {
-      display: flex; gap: 48px;
-      animation: marquee 22s linear infinite; white-space: nowrap;
-    }
-    .marquee span {
-      font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--text-light);
-    }
-    .marquee span.dot { color: var(--orange); font-size: 8px; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
     }
     section { padding: 100px 60px; }
     .section-eyebrow {
@@ -218,6 +240,7 @@
       font-family: 'Playfair Display', serif;
       font-size: clamp(36px, 5vw, 62px); font-weight: 700;
       line-height: 1.1; color: var(--dark); margin-bottom: 20px;
+      letter-spacing: -0.015em;
     }
     .section-body {
       font-size: 16px; color: var(--text-light); max-width: 520px; line-height: 1.8;
@@ -232,37 +255,29 @@
     }
     .service-card {
       background: var(--cream); border: 1.5px solid var(--border);
-      border-radius: 20px; padding: 40px 36px;
-      position: relative; transition: all 0.3s; overflow: hidden;
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      position: relative; transition: transform 0.25s, border-color 0.25s;
     }
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(44,32,22,0.08); border-color: var(--tan);
-    }
+    .service-card:hover { transform: translateY(-3px); border-color: var(--tan); }
     .service-icon {
-      width: 52px; height: 52px; background: var(--orange-pale);
-      border-radius: 14px; display: flex; align-items: center;
-      justify-content: center; font-size: 22px; margin-bottom: 24px;
+      width: 48px; height: 48px; background: var(--orange-pale);
+      border-radius: var(--radius-md); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 24px; color: var(--orange);
     }
     .service-badge {
       position: absolute; top: 24px; right: 24px;
-      background: var(--orange); color: white;
+      background: var(--orange-pale); color: var(--orange);
       font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 4px 12px; border-radius: 50px;
+      text-transform: uppercase; padding: 5px 11px; border-radius: 4px;
     }
-    .service-badge.free { background: #2d7a4f; }
+    .service-badge.free { background: var(--green-pale); color: var(--green); }
     .service-card h3 {
       font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
       color: var(--dark); margin-bottom: 12px; line-height: 1.25;
+      padding-right: 90px;
     }
     .service-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
     #pricing { background: var(--dark); color: white; position: relative; overflow: hidden; }
-    #pricing::before {
-      content: ''; position: absolute; top: -200px; right: -200px;
-      width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(212,98,42,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
     #pricing .section-title { color: white; }
     #pricing .section-body { color: rgba(255,255,255,0.55); }
     .pricing-layout {
@@ -273,13 +288,12 @@
     .pricing-card {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; padding: 36px 40px;
+      border-radius: var(--radius-lg); padding: 36px 40px;
       position: relative; overflow: hidden;
     }
     .pricing-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--orange), var(--tan));
-      border-radius: 20px 20px 0 0;
+      background: var(--orange);
     }
     .price-label {
       font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
@@ -296,7 +310,7 @@
       font-size: 14px; color: rgba(255,255,255,0.6);
       display: flex; align-items: flex-start; gap: 10px;
     }
-    .price-features li::before { content: '✓'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
+    .price-features li svg { color: var(--orange); margin-top: 3px; }
     .manifesto-block {
       display: flex; flex-direction: column; justify-content: center;
       gap: 28px; padding-left: 20px;
@@ -309,13 +323,6 @@
     .manifesto-quote strong { font-style: normal; color: var(--orange); }
     .manifesto-divider { width: 50px; height: 2px; background: var(--orange); border-radius: 2px; }
     .manifesto-body { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 380px; }
-    .tagline-badge {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(212,98,42,0.15); border: 1px solid rgba(212,98,42,0.3);
-      color: var(--orange-light); font-family: 'Playfair Display', serif;
-      font-size: 18px; font-style: italic; padding: 14px 24px;
-      border-radius: 14px; width: fit-content;
-    }
     #niches { background: var(--sand); }
     .niche-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -323,10 +330,15 @@
     }
     .niche-card {
       background: var(--warm-white); border: 1.5px solid var(--border);
-      border-radius: 20px; padding: 44px 36px; transition: all 0.3s;
+      border-radius: var(--radius-lg); padding: 44px 36px;
+      transition: transform 0.25s, border-color 0.25s;
     }
-    .niche-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,32,22,0.09); }
-    .niche-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+    .niche-card:hover { transform: translateY(-3px); border-color: var(--tan); }
+    .niche-icon {
+      width: 48px; height: 48px; background: var(--orange-pale);
+      border-radius: var(--radius-md); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 22px; color: var(--orange);
+    }
     .niche-card h3 {
       font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
       color: var(--dark); margin-bottom: 12px;
@@ -338,22 +350,22 @@
     }
     .founder-card {
       background: var(--cream); border: 1.5px solid var(--border);
-      border-radius: 24px; padding: 52px 48px;
-      position: relative; overflow: hidden; transition: all 0.3s;
+      border-radius: var(--radius-lg); padding: 52px 48px;
+      position: relative; overflow: hidden; transition: transform 0.25s, border-color 0.25s;
     }
-    .founder-card:hover { transform: translateY(-3px); box-shadow: 0 18px 48px rgba(44,32,22,0.08); }
+    .founder-card:hover { transform: translateY(-3px); border-color: var(--tan); }
     .founder-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, var(--orange), var(--tan));
-      border-radius: 0 0 24px 24px;
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--orange);
     }
     .founder-avatar {
-      width: 120px; height: 120px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange), var(--tan));
+      width: 112px; height: 112px; border-radius: 50%;
+      background: var(--orange-pale);
+      border: 1.5px solid rgba(212,98,42,0.25);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
-      color: white; margin-bottom: 24px; overflow: hidden;
-      border: 3px solid var(--orange);
+      font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
+      color: var(--orange); margin-bottom: 24px; overflow: hidden;
+      letter-spacing: 0.02em;
     }
     .founder-name {
       font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
@@ -364,59 +376,44 @@
       text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
     }
     .founder-bio { font-size: 15px; color: var(--text-light); line-height: 1.8; max-width: 360px; }
-
     /* ===== BOOKING SECTION ===== */
     #booking {
       background: var(--orange); color: white;
       text-align: center; position: relative; overflow: hidden;
     }
-    #booking::before {
-      content: ''; position: absolute; top: -150px; right: -150px;
-      width: 400px; height: 400px; background: rgba(255,255,255,0.06); border-radius: 50%;
-    }
-    #booking::after {
-      content: ''; position: absolute; bottom: -100px; left: -80px;
-      width: 300px; height: 300px; background: rgba(0,0,0,0.06); border-radius: 50%;
-    }
-    #booking .section-eyebrow { color: rgba(255,255,255,0.75); justify-content: center; }
-    #booking .section-eyebrow::before { background: rgba(255,255,255,0.75); }
+    #booking .section-eyebrow { color: rgba(255,255,255,0.8); justify-content: center; }
+    #booking .section-eyebrow::before { background: rgba(255,255,255,0.8); }
     #booking .section-title { color: white; font-size: clamp(40px, 6vw, 72px); }
     .booking-sub {
-      font-size: 17px; color: rgba(255,255,255,0.75); max-width: 540px;
-      margin: 0 auto 24px; line-height: 1.75;
+      font-size: 17px; color: rgba(255,255,255,0.8); max-width: 540px;
+      margin: 0 auto 26px; line-height: 1.75;
     }
     .booking-perks {
-      display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
-      margin: 0 auto 44px; max-width: 700px;
+      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+      margin: 0 auto 44px; max-width: 720px;
     }
     .booking-perk {
       display: flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-      padding: 8px 18px; border-radius: 50px;
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
+      padding: 9px 18px; border-radius: var(--radius-sm);
     }
     .scheduler-shell {
-      background: white; border-radius: 24px; padding: 20px;
+      background: white; border-radius: var(--radius-lg); padding: 20px;
       max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
     }
-    .booking-cta {
-      padding: 72px 32px; text-align: center;
-    }
+    .booking-cta { padding: 72px 32px; text-align: center; }
     .booking-cta h3 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(30px, 4vw, 42px); font-weight: 700;
       color: var(--dark); margin-bottom: 36px; line-height: 1.15;
     }
-    .btn-book-now {
-      font-size: 17px; padding: 20px 56px;
-    }
+    .btn-book-now { font-size: 17px; padding: 20px 52px; }
     .booking-footnote {
-      font-size: 13px; color: rgba(255,255,255,0.7);
+      font-size: 13px; color: rgba(255,255,255,0.8);
       margin-top: 28px; position: relative; z-index: 1;
     }
     .booking-footnote a { color: white; font-weight: 600; }
-
     footer {
       background: var(--dark); padding: 56px 60px 40px;
       display: flex; justify-content: space-between; align-items: flex-end;
@@ -445,28 +442,44 @@
     .hero h1 { animation: fadeUp 0.9s ease 0.35s both; }
     .hero-sub { animation: fadeUp 0.9s ease 0.5s both; }
     .hero-actions { animation: fadeUp 0.9s ease 0.62s both; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
     @media (max-width: 900px) {
-      nav { padding: 18px 24px; }
+      nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 24px 60px; }
+      .nav-toggle { display: block; }
+      .hero { padding: 100px 24px 60px; min-height: auto; }
       section { padding: 72px 24px; }
-      .services-intro { flex-direction: column; }
+      .services-intro { flex-direction: column; align-items: flex-start; }
       .pricing-layout { grid-template-columns: 1fr; }
+      .pricing-card { padding: 32px 26px; }
       .manifesto-block { padding-left: 0; }
       .niche-grid { grid-template-columns: 1fr 1fr; }
       .founders-layout { grid-template-columns: 1fr; }
+      .founder-card { padding: 40px 30px; }
       #booking { padding: 72px 16px; }
-      .scheduler-shell { padding: 10px; border-radius: 18px; }
+      .scheduler-shell { padding: 10px; }
       .booking-cta { padding: 52px 20px; }
       footer { padding: 40px 24px 32px; }
       .footer-names { text-align: left; }
-      .trust-bar { padding: 16px 24px; gap: 20px; }
+      .trust-bar { padding: 18px 24px; gap: 18px; }
     }
     @media (max-width: 600px) {
       .niche-grid { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; align-items: flex-start; }
-      .booking-perks { gap: 10px; }
-      .booking-perk { font-size: 12px; padding: 7px 14px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions a { justify-content: center; }
+      .service-card h3 { padding-right: 0; margin-top: 8px; }
+      .service-badge { position: static; display: inline-block; margin-bottom: 4px; }
+      .booking-perks { gap: 8px; }
+      .booking-perk { font-size: 12px; padding: 8px 14px; }
+      .price-big { font-size: 58px; }
     }
   </style>
 </head>
@@ -476,7 +489,7 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <nav>
-    <a href="#" class="nav-logo">
+    <a href="#" class="nav-logo" aria-label="T&amp;L Performance Strategies — home">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" height="36">
         <defs>
           <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -494,18 +507,30 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#niches">Who We Serve</a></li>
       <li><a href="#founders">About Us</a></li>
-      <li><a href="#booking" class="nav-cta">Book a Call</a></li>
+      <li><a href="#booking" class="nav-cta" data-book-cta>Book a Call</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+      <svg class="icon icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#niches">Who We Serve</a>
+    <a href="#founders">About Us</a>
+    <a href="#booking" class="mobile-cta" data-book-cta>Book a Call</a>
+  </div>
   <section class="hero">
-    <div class="hero-blob"></div>
-    <div class="hero-blob-2"></div>
     <div class="hero-inner">
       <div class="hero-eyebrow">Performance-Based Growth Agency</div>
       <h1>We Only Win<br/>If <em>You</em> Win.</h1>
       <p class="hero-sub">No retainers. No agency fees upfront. You cover your ad spend — we handle everything else on pure performance. T&L Performance Strategies only gets paid when you do.</p>
       <div class="hero-actions">
-        <a href="#booking" class="btn-primary" data-book-cta>Book Audit Call →</a>
+        <a href="#booking" class="btn-primary" data-book-cta>
+          Book Audit Call
+          <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
         <a href="#services" class="btn-outline">See What We Do</a>
       </div>
     </div>
@@ -517,18 +542,6 @@
     <div class="trust-item"><span class="dot"></span>HVAC · Flooring · Service Businesses</div>
     <div class="trust-item"><span class="dot"></span>Free Audit Included</div>
   </div>
-  <div class="marquee-wrap">
-    <div class="marquee">
-      <span>HVAC</span><span class="dot">✦</span><span>Flooring</span><span class="dot">✦</span>
-      <span>Service Businesses</span><span class="dot">✦</span><span>Zero Retainer</span><span class="dot">✦</span>
-      <span>Performance Only</span><span class="dot">✦</span><span>Qualified Leads</span><span class="dot">✦</span>
-      <span>Free Audit</span><span class="dot">✦</span>
-      <span>HVAC</span><span class="dot">✦</span><span>Flooring</span><span class="dot">✦</span>
-      <span>Service Businesses</span><span class="dot">✦</span><span>Zero Retainer</span><span class="dot">✦</span>
-      <span>Performance Only</span><span class="dot">✦</span><span>Qualified Leads</span><span class="dot">✦</span>
-      <span>Free Audit</span><span class="dot">✦</span>
-    </div>
-  </div>
   <section id="services">
     <div class="services-intro">
       <div>
@@ -539,25 +552,33 @@
     </div>
     <div class="services-grid">
       <div class="service-card reveal">
-        <div class="service-icon">🎯</div>
+        <div class="service-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3"/></svg>
+        </div>
         <div class="service-badge free">Free &amp; Optional</div>
         <h3>Landing Page Optimization</h3>
         <p>If your current landing page isn't converting visitors into leads, we step in and rebuild it — eliminating friction and sharpening the message so every visitor has one clear path to booking a call.</p>
       </div>
       <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">📣</div>
+        <div class="service-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14"/></svg>
+        </div>
         <div class="service-badge">Core</div>
         <h3>Targeted Ad Creation</h3>
         <p>Precision-crafted ad creatives and copy built specifically for your niche. We know your customer better than your competition does.</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
-        <div class="service-icon">📈</div>
+        <div class="service-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M6 20v-6M11 20V9M16 20v-9M21 20V5"/></svg>
+        </div>
         <div class="service-badge">Core</div>
         <h3>Full Campaign Management</h3>
         <p>End-to-end campaign management across Meta — with Google Ads coming soon. We handle strategy, targeting, and optimization so you can focus on the work.</p>
       </div>
       <div class="service-card reveal reveal-delay-3">
-        <div class="service-icon">🔍</div>
+        <div class="service-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </div>
         <div class="service-badge free">Free</div>
         <h3>Free Business Audit</h3>
         <p>Before we pitch you anything, we do a deep dive into your current marketing and conversion gaps — then show you exactly what's being left on the table.</p>
@@ -574,10 +595,10 @@
           <div class="price-big"><sup>$</sup>80</div>
           <p class="price-note">Flat rate, per verified lead delivered</p>
           <ul class="price-features">
-            <li>Only pay for verified, qualifying leads</li>
-            <li>Qualification criteria agreed upfront</li>
-            <li>No charge for unqualified inquiries</li>
-            <li>You retain full control of your ad budget</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Only pay for verified, qualifying leads</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Qualification criteria agreed upfront</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>No charge for unqualified inquiries</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>You retain full control of your ad budget</li>
           </ul>
           <p style="margin-top:20px; font-size:12px; color:rgba(255,255,255,0.3); line-height:1.6;">* Clients are responsible for their own ad spend. T&L charges no agency retainer — only performance fees above.</p>
         </div>
@@ -586,9 +607,9 @@
           <div class="price-big">10<span style="font-size:36px;vertical-align:top;margin-top:18px;display:inline-block;">%</span></div>
           <p class="price-note">Of every job closed from our leads</p>
           <ul class="price-features">
-            <li>Only on revenue we directly generate</li>
-            <li>Tracked transparently, invoiced monthly</li>
-            <li>No hidden charges or surprise fees</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Only on revenue we directly generate</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Tracked transparently, invoiced monthly</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>No hidden charges or surprise fees</li>
           </ul>
         </div>
       </div>
@@ -596,8 +617,10 @@
         <div class="manifesto-quote">We put our money where our mouth is —&nbsp;<strong>strictly performance.</strong></div>
         <div class="manifesto-divider"></div>
         <p class="manifesto-body">You cover your ad spend — that's it. No retainer, no setup fee, no agency fees until results hit. Our entire model is built around shared risk: we only earn when your pipeline grows. That's the only way we know how to operate.</p>
-        <div class="tagline-badge">"We only win if you win."</div>
-        <a href="#booking" class="btn-primary" style="width:fit-content;margin-top:8px;" data-book-cta>Book a Call →</a>
+        <a href="#booking" class="btn-primary" style="width:fit-content;" data-book-cta>
+          Book a Call
+          <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -607,17 +630,23 @@
     <p class="section-body reveal reveal-delay-2">We go deep in specific trades and service industries — which means we know exactly what makes your customers call.</p>
     <div class="niche-grid">
       <div class="niche-card reveal">
-        <span class="niche-icon">❄️</span>
+        <div class="niche-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.5V4a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0Z"/><path d="M12 17.5v.01"/></svg>
+        </div>
         <h3>HVAC Companies</h3>
         <p>Heating, cooling, and air quality businesses. We know the seasonal spikes, urgency triggers, and how to generate emergency service calls on demand.</p>
       </div>
       <div class="niche-card reveal reveal-delay-1">
-        <span class="niche-icon">🏠</span>
+        <div class="niche-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        </div>
         <h3>Flooring Businesses</h3>
         <p>Installation, hardwood, tile, and LVP contractors. We target homeowners mid-renovation and turn browse intent into in-home quote requests.</p>
       </div>
       <div class="niche-card reveal reveal-delay-2">
-        <span class="niche-icon">🔧</span>
+        <div class="niche-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5a4 4 0 0 0 5 5L16 14l-6 6a2.8 2.8 0 0 1-4-4l6-6 3.5-4.5Z"/></svg>
+        </div>
         <h3>Service-Based Businesses</h3>
         <p>Plumbing, electrical, roofing, landscaping, and beyond. If you sell your expertise and time, we build the system that keeps your calendar full.</p>
       </div>
@@ -630,56 +659,102 @@
       <div class="founder-card reveal">
         <div class="founder-avatar">LP</div>
         <div class="founder-name">Logan B. Padilla</div>
-        <div class="founder-role">Founder & Partner</div>
+        <div class="founder-role">Founder &amp; Partner</div>
         <p class="founder-bio">Logan is one of the two minds behind T&L Performance Strategies. He co-created the performance-based model from the ground up and leads growth strategy and campaign operations — making sure every client sees real, measurable results.</p>
       </div>
       <div class="founder-card reveal reveal-delay-1">
         <div class="founder-avatar">TK</div>
         <div class="founder-name">Tristan J. Kelly</div>
-        <div class="founder-role">Founder & Partner</div>
+        <div class="founder-role">Founder &amp; Partner</div>
         <p class="founder-bio">Tristan co-founded T&L alongside Logan, helping shape the vision of an agency that only wins when its clients do. He leads the creative and client experience side — building ad systems and funnels that convert at a level most agencies can't touch.</p>
       </div>
     </div>
   </section>
-
   <!-- ===== BOOKING: GoHighLevel calendar (Zoom auto-attached) ===== -->
   <section id="booking">
     <div class="section-eyebrow">Get Started</div>
     <h2 class="section-title">Book Your Audit Call.</h2>
     <p class="booking-sub">You'll get a calendar invite with your Zoom link the second you book — no back-and-forth, no pitch, just a straight conversation about your business.</p>
     <div class="booking-perks">
-      <div class="booking-perk">⏱️ 30 minutes</div>
-      <div class="booking-perk">🎥 Over Zoom</div>
-      <div class="booking-perk">💸 Completely free</div>
-      <div class="booking-perk">🚫 No obligation</div>
+      <div class="booking-perk">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        30 minutes
+      </div>
+      <div class="booking-perk">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 11 6-3v8l-6-3Z"/></svg>
+        Over Zoom
+      </div>
+      <div class="booking-perk">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M17 6.5C17 4.6 14.8 3.5 12 3.5S7 4.6 7 6.5s2.2 3 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg>
+        Completely free
+      </div>
+      <div class="booking-perk">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 7.9-8 9-4.8-1.1-8-4.5-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        No obligation
+      </div>
     </div>
-
     <div class="scheduler-shell">
       <div class="booking-cta">
         <h3>Book your audit call</h3>
-        <a href="#" class="btn-primary btn-book-now" id="bookNowBtn" target="_blank" rel="noopener">Book Now</a>
+        <a href="#" class="btn-primary btn-book-now" id="bookNowBtn" target="_blank" rel="noopener">
+          Book Now
+          <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </div>
-
     <p class="booking-footnote">
       Can't find a time that works? Email us at
       <a href="mailto:lt@tlperformancestrategies.com">lt@tlperformancestrategies.com</a>
     </p>
   </section>
-
   <footer>
     <div>
       <div class="footer-logo">T<span>&</span>L Performance Strategies</div>
       <div class="footer-tagline">Performance-based marketing for service businesses</div>
     </div>
     <div class="footer-names">
-      <strong>Logan B. Padilla</strong> & <strong>Tristan J. Kelly</strong><br/>
+      <strong>Logan B. Padilla</strong> &amp; <strong>Tristan J. Kelly</strong><br/>
       Founders<br/><br/>
-      <span style="font-size:11px;opacity:0.6;">© 2025 T&L Performance Strategies. All rights reserved.</span>
+      <span style="font-size:11px;opacity:0.6;">&copy; <span id="year">2026</span> T&L Performance Strategies. All rights reserved.</span>
     </div>
   </footer>
-
   <script>
+    /* ---------- Footer year (never goes stale again) ---------- */
+    (function () {
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+
+    /* ---------- Mobile navigation ---------- */
+    (function () {
+      const toggle = document.getElementById('navToggle');
+      const menu = document.getElementById('mobileMenu');
+      if (!toggle || !menu) return;
+
+      function setOpen(open) {
+        menu.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.classList.toggle('nav-open', open);
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!menu.classList.contains('open'));
+      });
+
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setOpen(false); });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) setOpen(false);
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 900 && menu.classList.contains('open')) setOpen(false);
+      });
+    })();
+
     /* ---------- Scroll reveal ---------- */
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -694,13 +769,11 @@
       const base = (window.TL_BOOKING_URL || '').trim();
       const btn = document.getElementById('bookNowBtn');
       if (!btn) return;
-
       if (!base || base.indexOf('REPLACE_WITH_YOUR_CALENDAR_ID') !== -1) {
         btn.textContent = 'Booking page coming soon';
         btn.removeAttribute('href');
         return;
       }
-
       const passThrough = [
         'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
         'gclid', 'fbclid'
@@ -711,7 +784,6 @@
         const val = pageParams.get(key);
         if (val) bookingParams.set(key, val);
       });
-
       const query = bookingParams.toString();
       btn.href = query
         ? base + (base.indexOf('?') === -1 ? '?' : '&') + query
@@ -726,11 +798,9 @@
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'booking_intent', booking_source: source });
     }
-
     document.querySelectorAll('[data-book-cta]').forEach(function (el) {
       el.addEventListener('click', function () { trackBookingIntent('cta_button'); });
     });
-
     const bookNow = document.getElementById('bookNowBtn');
     if (bookNow) {
       bookNow.addEventListener('click', function () { trackBookingIntent('book_now'); });
