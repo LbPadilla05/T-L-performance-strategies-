@@ -28,7 +28,7 @@
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <!-- ============================================================
        BOOKING CONFIG — EDIT THIS ONE LINE ONLY
        In GoHighLevel: Calendars → your calendar → ⋯ → Share →
@@ -40,404 +40,379 @@
     window.TL_BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/oSWxIhhnD0XZzSgeSyxL";
   </script>
   <style>
+    /* ============================================================
+       T&L DESIGN SYSTEM — stark utilitarian
+       Layout: 12-column grid, hard ink rules instead of cards,
+       one depth policy (flat, no shadows), asymmetric label/content
+       columns with deliberate empty space.
+       Color: ink on paper. Brand orange appears in the logo and on
+       interactive elements (buttons, links, hover, focus) only.
+       ============================================================ */
     :root {
-      --cream: #faf7f2;
-      --warm-white: #fff9f4;
-      --sand: #efe8dc;
-      --tan: #d4b896;
-      --brown: #8b6f52;
-      --dark: #2c2016;
-      --charcoal: #3d3028;
-      --orange: #d4622a;
-      --orange-light: #e07a45;
-      --orange-pale: #fdf0e8;
-      --green: #2f6b4a;
-      --green-pale: #e8f1ec;
-      --text: #3d3028;
-      --text-light: #7a6355;
-      --border: rgba(139,111,82,0.18);
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      /* Color — semantic roles */
+      --surface: #fafaf8;
+      --surface-alt: #efefeb;
+      --surface-inverse: #111111;
+      --text-primary: #111111;
+      --text-secondary: #5c5c57;
+      --text-inverse: #fafaf8;
+      --text-inverse-secondary: #a3a39c;
+      --rule: #111111;
+      --rule-soft: #d4d4ce;
+      --rule-inverse: #3a3a37;
+      --brand: #d4622a;
+      --accent: #d4622a;
+      --accent-hover: #b4501d;
+      --on-accent: #ffffff;
+
+      /* Type — roles */
+      --font-display: 'Archivo', 'Helvetica Neue', sans-serif;
+      --font-body: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+      /* Type — scale (exact sizes) */
+      --fs-display: clamp(44px, 6.2vw, 88px);   /* section titles, -0.035em */
+      --fs-figure: clamp(112px, 15vw, 200px);   /* the 10% figure, -0.06em */
+      --fs-h3: 22px;                            /* column headings, -0.02em */
+      --fs-lead: 18px;
+      --fs-body: 16px;
+      --fs-small: 14px;
+      --fs-label: 12px;                         /* mono labels, +0.08em */
+
+      /* Space */
+      --gutter: 60px;
+      --section-y: 128px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--cream);
-      color: var(--text);
-      font-family: 'Nunito', sans-serif;
+      background: var(--surface);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
       font-weight: 400;
-      line-height: 1.65;
+      line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
     body.nav-open { overflow: hidden; }
     .icon {
       width: 24px; height: 24px;
       stroke: currentColor; stroke-width: 1.5;
-      stroke-linecap: round; stroke-linejoin: round;
+      stroke-linecap: square; stroke-linejoin: miter;
       fill: none; flex-shrink: 0;
     }
-    .icon-sm { width: 17px; height: 17px; }
-    :focus-visible {
-      outline: 2px solid var(--orange);
-      outline-offset: 3px;
+    .icon-sm { width: 16px; height: 16px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ---------- Shared type ---------- */
+    .label, .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--fs-label); font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-secondary);
     }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-display); font-weight: 800; font-stretch: 88%;
+      line-height: 0.95; letter-spacing: -0.035em; word-spacing: 0.08em;
+      color: var(--text-primary);
+      text-wrap: balance;
+    }
+    .section-body {
+      font-size: var(--fs-lead); color: var(--text-secondary);
+      line-height: 1.6; max-width: 34em;
+    }
+
+    /* ---------- Buttons (accent = interactive) ---------- */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: var(--on-accent); text-decoration: none;
+      font-family: var(--font-body); font-size: 15px; font-weight: 600;
+      padding: 16px 28px; border: 0; border-radius: 0; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--text-primary); text-decoration: none;
+      font-family: var(--font-body); font-size: 15px; font-weight: 500;
+      padding: 15px 27px; border: 1px solid var(--rule); border-radius: 0;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .btn-outline:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ---------- Nav ---------- */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 22px 60px;
-      background: rgba(250,247,242,0.93);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px var(--gutter);
+      background: var(--surface);
+      border-bottom: 1px solid var(--rule);
     }
-    .nav-logo {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-    .nav-logo svg { height: 36px; width: auto; }
-    .nav-logo span { color: var(--orange); }
-    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    .nav-logo svg { height: 34px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
+      color: var(--text-primary); text-decoration: none;
+      font-size: var(--fs-small); font-weight: 500;
+      transition: color 0.15s;
     }
-    .nav-links a:hover { color: var(--dark); }
-    .nav-cta {
-      background: var(--orange) !important;
-      color: white !important;
-      padding: 10px 24px !important;
-      border-radius: var(--radius-sm) !important;
-      font-weight: 600 !important;
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.nav-cta {
+      background: var(--accent); color: var(--on-accent);
+      padding: 10px 20px; font-weight: 600;
     }
-    .nav-cta:hover { background: var(--orange-light) !important; }
+    .nav-links a.nav-cta:hover { background: var(--accent-hover); color: var(--on-accent); }
     .nav-toggle {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 9px;
-      cursor: pointer;
-      color: var(--dark);
-      line-height: 0;
+      display: none; background: transparent;
+      border: 1px solid var(--rule); border-radius: 0;
+      padding: 8px; cursor: pointer; color: var(--text-primary); line-height: 0;
     }
-    .nav-toggle:hover { background: var(--sand); }
+    .nav-toggle:hover { color: var(--accent); border-color: var(--accent); }
     .nav-toggle .icon-close { display: none; }
     .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
     .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
     .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 99;
-      background: var(--cream);
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: var(--surface);
       padding: 96px 24px 32px;
-      flex-direction: column;
-      gap: 4px;
-      overflow-y: auto;
+      flex-direction: column; overflow-y: auto;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--dark);
-      text-decoration: none;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: 30px; font-weight: 800; letter-spacing: -0.03em;
+      color: var(--text-primary); text-decoration: none;
+      padding: 16px 0; border-bottom: 1px solid var(--rule);
     }
+    .mobile-menu a:hover { color: var(--accent); }
     .mobile-menu a.mobile-cta {
-      margin-top: 28px;
-      background: var(--orange);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      text-align: center;
-      font-size: 20px;
-      padding: 20px 24px;
+      margin-top: 28px; background: var(--accent); color: var(--on-accent);
+      border: 0; text-align: center; font-size: 22px; padding: 20px 24px;
     }
+
+    /* ---------- Hero ---------- */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 120px 60px 80px;
-      position: relative;
-      background: var(--warm-white);
+      padding: 176px var(--gutter) 0;
+      background: var(--surface);
     }
-    .hero-inner { max-width: 780px; position: relative; z-index: 1; }
+    .hero-inner {
+      display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px;
+    }
     .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      color: var(--orange);
-      font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-      margin-bottom: 34px;
+      grid-column: 1 / -1;
+      padding-bottom: 20px; margin-bottom: 72px;
+      border-bottom: 1px solid var(--rule);
+      color: var(--text-primary);
     }
-    .hero-eyebrow::before {
-      content: ''; width: 22px; height: 2px;
-      background: var(--orange); border-radius: 2px;
+    .hero h1.hero-brand { grid-column: 1 / 10; line-height: 0; margin-bottom: 96px; }
+    .hero-brand svg { display: block; width: 100%; max-width: 760px; height: auto; }
+    .hero-foot {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px;
+      align-items: center;
+      border-top: 1px solid var(--rule);
+      padding: 28px 0 32px;
     }
-    .hero h1.hero-brand { margin-bottom: 22px; line-height: 0; }
-    .hero-brand svg { display: block; width: 100%; max-width: 560px; height: auto; }
     .hero-slogan {
-      font-family: 'Playfair Display', serif;
-      font-style: italic; font-weight: 400;
-      font-size: clamp(18px, 2vw, 22px); line-height: 1.5;
-      color: var(--text-light); margin-bottom: 48px;
+      grid-column: 1 / 7;
+      font-size: var(--fs-lead); font-weight: 400;
+      color: var(--text-secondary);
     }
-    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 9px;
-      background: var(--orange); color: white; text-decoration: none;
-      font-size: 15px; font-weight: 600; padding: 16px 34px;
-      border-radius: var(--radius-sm); transition: background 0.2s, transform 0.2s;
-      border: none; cursor: pointer;
-      font-family: 'Nunito', sans-serif;
+    .hero-actions {
+      grid-column: 7 / -1; justify-self: end;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
     }
-    .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 9px;
-      background: transparent; color: var(--text); text-decoration: none;
-      font-size: 15px; font-weight: 500; padding: 15px 30px;
-      border-radius: var(--radius-sm); border: 1.5px solid var(--border);
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .btn-outline:hover { border-color: var(--tan); background: var(--sand); }
+
+    /* ---------- Trust strip ---------- */
     .trust-bar {
-      background: var(--dark); padding: 22px 60px;
-      display: flex; align-items: center; justify-content: center;
-      gap: 48px; flex-wrap: wrap;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1px; background: var(--rule-inverse);
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
     }
     .trust-item {
-      display: flex; align-items: center; gap: 10px;
-      color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 500;
+      background: var(--surface-inverse); color: var(--text-inverse);
+      font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 20px 20px; display: flex; align-items: center; gap: 10px;
     }
-    .trust-item .dot {
-      width: 5px; height: 5px; background: var(--orange);
-      border-radius: 50%; flex-shrink: 0;
+    .trust-item .dot { width: 6px; height: 6px; background: var(--text-inverse); flex-shrink: 0; }
+
+    /* ---------- Sections ---------- */
+    section { padding: var(--section-y) var(--gutter); }
+    .sec-head {
+      display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px;
+      row-gap: 28px; margin-bottom: 80px;
     }
-    section { padding: 100px 60px; }
-    .section-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--orange); font-size: 12px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px;
+    .sec-head .section-eyebrow { grid-column: 1 / 4; padding-top: 10px; }
+    .sec-head .section-title { grid-column: 4 / -1; }
+    .sec-head .section-body { grid-column: 4 / 11; }
+
+    /* Ruled grid: 1px gaps over an ink background draw every rule */
+    .ruled {
+      display: grid; gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule);
     }
-    .section-eyebrow::before {
-      content: ''; width: 20px; height: 2px;
-      background: var(--orange); border-radius: 2px;
+    .ruled > * { background: var(--surface); }
+
+    /* ---------- Services ---------- */
+    #services { background: var(--surface); }
+    .services-grid { grid-template-columns: repeat(4, 1fr); }
+    .service-card { padding: 32px 28px 44px; display: flex; flex-direction: column; }
+    .service-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 56px;
     }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 62px); font-weight: 700;
-      line-height: 1.1; color: var(--dark); margin-bottom: 20px;
-      letter-spacing: -0.015em;
-    }
-    .section-body {
-      font-size: 16px; color: var(--text-light); max-width: 520px; line-height: 1.8;
-    }
-    #services { background: var(--warm-white); }
-    .services-intro {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 60px; gap: 40px; flex-wrap: wrap;
-    }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
-    }
-    .service-card {
-      background: var(--cream); border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 40px 36px;
-      position: relative; transition: transform 0.25s, border-color 0.25s;
-    }
-    .service-card:hover { transform: translateY(-3px); border-color: var(--tan); }
-    .service-icon {
-      width: 48px; height: 48px; background: var(--orange-pale);
-      border-radius: var(--radius-md); display: flex; align-items: center;
-      justify-content: center; margin-bottom: 24px; color: var(--orange);
-    }
+    .service-icon { color: var(--text-primary); line-height: 0; }
     .service-badge {
-      position: absolute; top: 24px; right: 24px;
-      background: var(--orange-pale); color: var(--orange);
-      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 5px 11px; border-radius: 4px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 8px; border: 1px solid var(--rule); color: var(--text-primary);
     }
-    .service-badge.free { background: var(--green-pale); color: var(--green); }
+    .service-badge.free { background: var(--surface-inverse); color: var(--text-inverse); }
     .service-card h3 {
-      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
-      color: var(--dark); margin-bottom: 12px; line-height: 1.25;
-      padding-right: 90px;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: var(--fs-h3); font-weight: 700; letter-spacing: -0.015em; word-spacing: 0.04em;
+      line-height: 1.15; margin-bottom: 14px; text-wrap: balance;
     }
-    .service-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
-    #pricing { background: var(--dark); color: white; position: relative; overflow: hidden; }
-    #pricing .section-title { color: white; }
-    #pricing .section-body { color: rgba(255,255,255,0.55); }
+    .service-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ---------- Pricing (inverse) ---------- */
+    #pricing { background: var(--surface-inverse); color: var(--text-inverse); }
+    #pricing .section-eyebrow { color: var(--text-inverse-secondary); }
+    #pricing .section-title { color: var(--text-inverse); }
     .pricing-layout {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 40px; margin-top: 60px; align-items: start;
+      display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px;
+      border-top: 1px solid var(--text-inverse);
     }
-    .pricing-cards { display: flex; flex-direction: column; gap: 24px; }
-    .pricing-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius-lg); padding: 36px 40px;
-      position: relative; overflow: hidden;
-    }
-    .pricing-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--orange);
-    }
-    .price-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--tan); margin-bottom: 12px;
-    }
+    .pricing-card { grid-column: 1 / 8; padding: 32px 48px 40px 0; border-right: 1px solid var(--rule-inverse); }
+    .price-label { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-inverse-secondary); }
     .price-big {
-      font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700;
-      color: white; line-height: 1; margin-bottom: 6px;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: var(--fs-figure); font-weight: 800;
+      line-height: 0.85; letter-spacing: -0.06em;
+      color: var(--text-inverse); margin: 28px 0 20px;
     }
-    .price-big sup { font-size: 32px; vertical-align: top; margin-top: 14px; }
-    .price-note { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
-    .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .price-big .pct { font-size: 0.45em; letter-spacing: -0.02em; vertical-align: top; display: inline-block; margin-top: 0.12em; margin-left: 0.04em; }
+    .price-note { font-size: var(--fs-lead); color: var(--text-inverse); margin-bottom: 32px; }
+    .price-features { list-style: none; border-top: 1px solid var(--rule-inverse); }
     .price-features li {
-      font-size: 14px; color: rgba(255,255,255,0.6);
-      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 15px; color: var(--text-inverse-secondary);
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0; border-bottom: 1px solid var(--rule-inverse);
     }
-    .price-features li svg { color: var(--orange); margin-top: 3px; }
+    .price-features li svg { color: var(--text-inverse); }
+    .price-disclaimer { margin-top: 20px; font-size: 12px; color: var(--text-inverse-secondary); line-height: 1.6; }
     .manifesto-block {
-      display: flex; flex-direction: column; justify-content: center;
-      gap: 28px; padding-left: 20px;
+      grid-column: 8 / -1; padding: 32px 0 40px 24px;
+      display: flex; flex-direction: column; gap: 28px; justify-content: flex-end;
     }
     .manifesto-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 3.5vw, 46px); font-style: italic;
-      line-height: 1.25; color: white;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: clamp(28px, 2.8vw, 40px); font-weight: 600;
+      line-height: 1.08; letter-spacing: -0.02em; word-spacing: 0.06em;
+      color: var(--text-inverse-secondary);
     }
-    .manifesto-quote strong { font-style: normal; color: var(--orange); }
-    .manifesto-divider { width: 50px; height: 2px; background: var(--orange); border-radius: 2px; }
-    .manifesto-body { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 380px; }
-    #niches { background: var(--sand); }
-    .niche-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 56px;
-    }
-    .niche-card {
-      background: var(--warm-white); border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 44px 36px;
-      transition: transform 0.25s, border-color 0.25s;
-    }
-    .niche-card:hover { transform: translateY(-3px); border-color: var(--tan); }
-    .niche-icon {
-      width: 48px; height: 48px; background: var(--orange-pale);
-      border-radius: var(--radius-md); display: flex; align-items: center;
-      justify-content: center; margin-bottom: 22px; color: var(--orange);
-    }
+    .manifesto-quote strong { color: var(--text-inverse); font-weight: 800; }
+    .manifesto-body { font-size: 15px; color: var(--text-inverse-secondary); line-height: 1.7; max-width: 30em; }
+
+    /* ---------- Niches ---------- */
+    #niches { background: var(--surface-alt); }
+    #niches .ruled > * { background: var(--surface-alt); }
+    .niche-grid { grid-template-columns: repeat(3, 1fr); }
+    .niche-card { padding: 32px 28px 48px; }
+    .niche-icon { color: var(--text-primary); line-height: 0; margin-bottom: 56px; }
     .niche-card h3 {
-      font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
-      color: var(--dark); margin-bottom: 12px;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: 26px; font-weight: 700; letter-spacing: -0.02em; word-spacing: 0.04em;
+      line-height: 1.1; margin-bottom: 14px;
     }
-    .niche-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
-    #founders { background: var(--warm-white); }
-    .founders-layout {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 60px;
-    }
-    .founder-card {
-      background: var(--cream); border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 52px 48px;
-      position: relative; overflow: hidden; transition: transform 0.25s, border-color 0.25s;
-    }
-    .founder-card:hover { transform: translateY(-3px); border-color: var(--tan); }
-    .founder-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-      background: var(--orange);
-    }
+    .niche-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 30em; }
+
+    /* ---------- Founders ---------- */
+    #founders { background: var(--surface); }
+    .founders-layout { grid-template-columns: 1fr 1fr; }
+    .founder-card { padding: 36px 32px 48px; display: grid; grid-template-columns: 88px 1fr; column-gap: 28px; }
     .founder-avatar {
-      width: 112px; height: 112px; border-radius: 50%;
-      background: var(--orange-pale);
-      border: 1.5px solid rgba(212,98,42,0.25);
+      width: 88px; height: 88px; border: 1px solid var(--rule);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
-      color: var(--orange); margin-bottom: 24px; overflow: hidden;
-      letter-spacing: 0.02em;
+      font-family: var(--font-mono); font-size: 22px; font-weight: 500;
+      color: var(--text-primary); overflow: hidden;
     }
+    .founder-card > div:not(.founder-avatar), .founder-card > p { grid-column: 2; }
     .founder-name {
-      font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
-      color: var(--dark); line-height: 1.1; margin-bottom: 6px;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: 32px; font-weight: 800; letter-spacing: -0.025em; word-spacing: 0.06em; line-height: 1;
+      margin-bottom: 10px;
     }
-    .founder-role {
-      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
-    }
-    .founder-bio { font-size: 15px; color: var(--text-light); line-height: 1.8; max-width: 360px; }
-    /* ===== BOOKING SECTION ===== */
-    #booking {
-      background: var(--orange); color: white;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    #booking .section-eyebrow { color: rgba(255,255,255,0.8); justify-content: center; }
-    #booking .section-eyebrow::before { background: rgba(255,255,255,0.8); }
-    #booking .section-title { color: white; font-size: clamp(40px, 6vw, 72px); }
-    .booking-sub {
-      font-size: 17px; color: rgba(255,255,255,0.8); max-width: 540px;
-      margin: 0 auto 26px; line-height: 1.75;
-    }
+    .founder-role { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 24px; }
+    .founder-bio { font-size: 15px; color: var(--text-secondary); line-height: 1.7; max-width: 30em; }
+    .founder-avatar { grid-row: 1 / span 3; }
+
+    /* ---------- Booking (inverse) ---------- */
+    #booking { background: var(--surface-inverse); color: var(--text-inverse); border-top: 1px solid var(--rule); }
+    .booking-grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 48px; }
+    .booking-copy { grid-column: 1 / 8; }
+    #booking .section-eyebrow { color: var(--text-inverse-secondary); display: block; margin-bottom: 28px; }
+    #booking .section-title { color: var(--text-inverse); margin-bottom: 28px; }
+    .booking-sub { font-size: var(--fs-lead); color: var(--text-inverse-secondary); max-width: 32em; line-height: 1.6; margin-bottom: 40px; }
     .booking-perks {
-      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
-      margin: 0 auto 44px; max-width: 720px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+      background: var(--rule-inverse); border: 1px solid var(--rule-inverse); max-width: 560px;
     }
     .booking-perk {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.95);
-      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
-      padding: 9px 18px; border-radius: var(--radius-sm);
+      background: var(--surface-inverse);
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-inverse);
+      padding: 16px 18px;
     }
     .scheduler-shell {
-      background: white; border-radius: var(--radius-lg); padding: 20px;
-      max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
+      grid-column: 8 / -1; align-self: end;
+      border: 1px solid var(--text-inverse); padding: 0;
     }
-    .booking-cta { padding: 72px 32px; text-align: center; }
+    .booking-cta { padding: 32px 28px; display: flex; flex-direction: column; gap: 32px; }
     .booking-cta h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(30px, 4vw, 42px); font-weight: 700;
-      color: var(--dark); margin-bottom: 36px; line-height: 1.15;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: 30px; font-weight: 700; letter-spacing: -0.015em; word-spacing: 0.06em; line-height: 1.05;
+      color: var(--text-inverse);
     }
-    .btn-book-now { font-size: 17px; padding: 20px 52px; }
+    .btn-book-now { justify-content: space-between; font-size: 17px; padding: 20px 24px; }
     .booking-footnote {
-      font-size: 13px; color: rgba(255,255,255,0.8);
-      margin-top: 28px; position: relative; z-index: 1;
+      grid-column: 1 / -1; font-size: var(--fs-small); color: var(--text-inverse-secondary);
+      border-top: 1px solid var(--rule-inverse); padding-top: 24px;
     }
-    .booking-footnote a { color: white; font-weight: 600; }
+    .booking-footnote a { color: var(--text-inverse); font-weight: 500; text-underline-offset: 3px; }
+    .booking-footnote a:hover { color: var(--accent); }
+
+    /* ---------- Footer ---------- */
     footer {
-      background: var(--dark); padding: 56px 60px 40px;
+      background: var(--surface-inverse); color: var(--text-inverse);
+      padding: 40px var(--gutter) 48px;
+      border-top: 1px solid var(--rule-inverse);
       display: flex; justify-content: space-between; align-items: flex-end;
       flex-wrap: wrap; gap: 32px;
     }
     .footer-logo {
-      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: white;
+      font-family: var(--font-display); font-stretch: 88%;
+      font-size: 22px; font-weight: 800; letter-spacing: -0.01em; word-spacing: 0.06em; color: var(--text-inverse);
     }
-    .footer-logo span { color: var(--orange); }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 6px; }
-    .footer-names { font-size: 13px; color: rgba(255,255,255,0.4); text-align: right; line-height: 1.85; }
-    .footer-names strong { color: rgba(255,255,255,0.7); font-weight: 600; }
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(36px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero-eyebrow { animation: fadeUp 0.8s ease 0.2s both; }
-    .hero h1 { animation: fadeUp 0.9s ease 0.35s both; }
-    .hero-slogan { animation: fadeUp 0.9s ease 0.5s both; }
-    .hero-actions { animation: fadeUp 0.9s ease 0.62s both; }
+    .footer-logo span { color: var(--brand); }
+    .footer-tagline { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-inverse-secondary); margin-top: 8px; }
+    .footer-names { font-size: 13px; color: var(--text-inverse-secondary); text-align: right; line-height: 1.8; }
+    .footer-names strong { color: var(--text-inverse); font-weight: 500; }
+
+    /* ---------- Motion: one quiet fade, no lifts ---------- */
+    .reveal { opacity: 0; transition: opacity 0.6s ease; }
+    .reveal.visible { opacity: 1; }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .hero-eyebrow { animation: fadeIn 0.6s ease 0.1s both; }
+    .hero h1 { animation: fadeIn 0.8s ease 0.2s both; }
+    .hero-foot { animation: fadeIn 0.8s ease 0.35s both; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after {
@@ -445,37 +420,46 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
-      .reveal { opacity: 1; transform: none; }
+      .reveal { opacity: 1; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1100px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-bar { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
+      :root { --gutter: 24px; --section-y: 88px; }
+      nav { padding: 14px var(--gutter); }
       .nav-links { display: none; }
       .nav-toggle { display: block; }
-      .hero { padding: 100px 24px 60px; min-height: auto; }
-      section { padding: 72px 24px; }
-      .services-intro { flex-direction: column; align-items: flex-start; }
-      .pricing-layout { grid-template-columns: 1fr; }
-      .pricing-card { padding: 32px 26px; }
-      .manifesto-block { padding-left: 0; }
-      .niche-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding-top: 120px; }
+      .hero-eyebrow { margin-bottom: 48px; }
+      .hero h1.hero-brand { grid-column: 1 / -1; margin-bottom: 56px; }
+      .hero-slogan { grid-column: 1 / -1; margin-bottom: 24px; }
+      .hero-actions { grid-column: 1 / -1; justify-self: start; }
+      .sec-head { margin-bottom: 56px; }
+      .sec-head .section-eyebrow, .sec-head .section-title, .sec-head .section-body { grid-column: 1 / -1; }
+      .sec-head .section-eyebrow { padding-top: 0; }
+      .pricing-card { grid-column: 1 / -1; padding-right: 0; border-right: 0; border-bottom: 1px solid var(--rule-inverse); }
+      .manifesto-block { grid-column: 1 / -1; padding-left: 0; }
+      .niche-grid { grid-template-columns: 1fr; }
       .founders-layout { grid-template-columns: 1fr; }
-      .founder-card { padding: 40px 30px; }
-      #booking { padding: 72px 16px; }
-      .scheduler-shell { padding: 10px; }
-      .booking-cta { padding: 52px 20px; }
-      footer { padding: 40px 24px 32px; }
+      .booking-copy, .scheduler-shell { grid-column: 1 / -1; }
       .footer-names { text-align: left; }
-      .trust-bar { padding: 18px 24px; gap: 18px; }
     }
     @media (max-width: 600px) {
-      .niche-grid { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
+      .services-grid { grid-template-columns: 1fr; }
+      .trust-bar { grid-template-columns: 1fr 1fr; }
+      .trust-item:last-child { grid-column: 1 / -1; }
+      .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
       .hero-actions a { justify-content: center; }
-      .service-card h3 { padding-right: 0; margin-top: 8px; }
-      .service-badge { position: static; display: inline-block; margin-bottom: 4px; }
-      .booking-perks { gap: 8px; }
-      .booking-perk { font-size: 12px; padding: 8px 14px; }
-      .price-big { font-size: 58px; }
+      .service-top { margin-bottom: 36px; }
+      .niche-icon { margin-bottom: 36px; }
+      .founder-card { grid-template-columns: 1fr; }
+      .founder-card > div:not(.founder-avatar), .founder-card > p { grid-column: 1; }
+      .founder-avatar { grid-row: auto; margin-bottom: 24px; width: 72px; height: 72px; }
+      .booking-perks { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -486,16 +470,10 @@
   <!-- End Google Tag Manager (noscript) -->
   <nav>
     <a href="#" class="nav-logo" aria-label="T&amp;L Performance Strategies — home">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" height="36">
-        <defs>
-          <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#d4622a"/>
-            <stop offset="100%" style="stop-color:#f0a500"/>
-          </linearGradient>
-        </defs>
-        <text x="0" y="36" font-family="Arial Black, Impact, sans-serif" font-size="38" font-weight="900" fill="url(#navGrad)" letter-spacing="1">T&amp;L</text>
-        <text x="98" y="24" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#3d3028" letter-spacing="2">PERFORMANCE</text>
-        <text x="98" y="38" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#3d3028" letter-spacing="2">STRATEGIES</text>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 48" height="34">
+        <text x="0" y="36" font-family="Arial Black, Impact, sans-serif" font-size="38" font-weight="900" fill="#d4622a" letter-spacing="1">T&amp;L</text>
+        <text x="98" y="24" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#111111" letter-spacing="2">PERFORMANCE</text>
+        <text x="98" y="38" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#111111" letter-spacing="2">STRATEGIES</text>
       </svg>
     </a>
     <ul class="nav-links">
@@ -519,27 +497,23 @@
   </div>
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-eyebrow">Performance-Based Growth Agency</div>
+      <div class="hero-eyebrow label">Performance-Based Growth Agency</div>
       <h1 class="hero-brand">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 48" role="img" aria-label="T&amp;L Performance Strategies">
-          <defs>
-            <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#d4622a"/>
-              <stop offset="100%" style="stop-color:#f0a500"/>
-            </linearGradient>
-          </defs>
-          <text x="0" y="36" font-family="Arial Black, Impact, sans-serif" font-size="38" font-weight="900" fill="url(#heroGrad)" letter-spacing="1">T&amp;L</text>
-          <text x="98" y="24" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#3d3028" letter-spacing="2">PERFORMANCE</text>
-          <text x="98" y="38" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#3d3028" letter-spacing="2">STRATEGIES</text>
+          <text x="0" y="36" font-family="Arial Black, Impact, sans-serif" font-size="38" font-weight="900" fill="#d4622a" letter-spacing="1">T&amp;L</text>
+          <text x="98" y="24" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#111111" letter-spacing="2">PERFORMANCE</text>
+          <text x="98" y="38" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#111111" letter-spacing="2">STRATEGIES</text>
         </svg>
       </h1>
-      <p class="hero-slogan">We only win if you win.</p>
-      <div class="hero-actions">
-        <a href="#booking" class="btn-primary" data-book-cta>
-          Book Audit Call
-          <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#services" class="btn-outline">See What We Do</a>
+      <div class="hero-foot">
+        <p class="hero-slogan">We only win if you win.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn-primary" data-book-cta>
+            Book Audit Call
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#services" class="btn-outline">See What We Do</a>
+        </div>
       </div>
     </div>
   </section>
@@ -551,68 +525,71 @@
     <div class="trust-item"><span class="dot"></span>Free Audit Included</div>
   </div>
   <section id="services">
-    <div class="services-intro">
-      <div>
-        <div class="section-eyebrow reveal">What We Offer</div>
-        <h2 class="section-title reveal reveal-delay-1">Built to Convert.<br/>Designed to Scale.</h2>
-      </div>
+    <div class="sec-head">
+      <h2 class="section-eyebrow reveal">What We Offer</h2>
       <p class="section-body reveal reveal-delay-2">Every service is engineered around one goal: turning ad spend into booked jobs and real closed revenue.</p>
     </div>
-    <div class="services-grid">
+    <div class="services-grid ruled">
       <div class="service-card reveal">
-        <div class="service-icon">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>
+        <div class="service-top">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>
+          </div>
+          <div class="service-badge free">Included</div>
         </div>
-        <div class="service-badge free">Included</div>
         <h3>SMS Marketing Integration</h3>
         <p>Automated text follow-up built into your campaigns — instant replies to new leads, appointment reminders, and check-ins that keep leads from going cold.</p>
       </div>
       <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14"/></svg>
+        <div class="service-top">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14"/></svg>
+          </div>
+          <div class="service-badge">Core</div>
         </div>
-        <div class="service-badge">Core</div>
         <h3>Targeted Ad Creation</h3>
         <p>Precision-crafted ad creatives and copy built specifically for your niche. We know your customer better than your competition does.</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
-        <div class="service-icon">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M6 20v-6M11 20V9M16 20v-9M21 20V5"/></svg>
+        <div class="service-top">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M6 20v-6M11 20V9M16 20v-9M21 20V5"/></svg>
+          </div>
+          <div class="service-badge">Core</div>
         </div>
-        <div class="service-badge">Core</div>
         <h3>Full Campaign Management</h3>
         <p>End-to-end campaign management across Meta — with Google Ads coming soon. We handle strategy, targeting, and optimization so you can focus on the work.</p>
       </div>
       <div class="service-card reveal reveal-delay-3">
-        <div class="service-icon">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <div class="service-top">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </div>
+          <div class="service-badge free">Free</div>
         </div>
-        <div class="service-badge free">Free</div>
         <h3>Free Business Audit</h3>
         <p>Before we pitch you anything, we do a deep dive into your current marketing and conversion gaps — then show you exactly what's being left on the table.</p>
       </div>
     </div>
   </section>
   <section id="pricing">
-    <div class="section-eyebrow reveal">Transparent Pricing</div>
-    <h2 class="section-title reveal reveal-delay-1">No Upfront. Ever.</h2>
+    <div class="sec-head">
+      <h2 class="section-eyebrow reveal">Transparent Pricing</h2>
+    </div>
     <div class="pricing-layout">
-      <div class="pricing-cards reveal reveal-delay-1">
-        <div class="pricing-card">
-          <p class="price-label">Closed Revenue Commission</p>
-          <div class="price-big">10<span style="font-size:36px;vertical-align:top;margin-top:18px;display:inline-block;">%</span></div>
-          <p class="price-note">Of every job closed from our leads</p>
-          <ul class="price-features">
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Only on revenue we directly generate</li>
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Tracked transparently, invoiced monthly</li>
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>No hidden charges or surprise fees</li>
-          </ul>
-          <p style="margin-top:20px; font-size:12px; color:rgba(255,255,255,0.3); line-height:1.6;">* Clients are responsible for their own ad spend. T&L charges no agency retainer — only the performance fee above.</p>
-        </div>
+      <div class="pricing-card reveal reveal-delay-1">
+        <p class="price-label">Closed Revenue Commission</p>
+        <div class="price-big">10<span class="pct">%</span></div>
+        <p class="price-note">Of every job closed from our leads</p>
+        <ul class="price-features">
+          <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Only on revenue we directly generate</li>
+          <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>Tracked transparently, invoiced monthly</li>
+          <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>No hidden charges or surprise fees</li>
+        </ul>
+        <p class="price-disclaimer">* Clients are responsible for their own ad spend. T&L charges no agency retainer — only the performance fee above.</p>
       </div>
       <div class="manifesto-block reveal reveal-delay-2">
         <div class="manifesto-quote">We put our money where our mouth is —&nbsp;<strong>strictly performance.</strong></div>
-        <div class="manifesto-divider"></div>
         <p class="manifesto-body">You cover your ad spend — that's it. No retainer, no setup fee, no agency fees until results hit. Our entire model is built around shared risk: we only earn when your pipeline grows. That's the only way we know how to operate.</p>
         <a href="#booking" class="btn-primary" style="width:fit-content;" data-book-cta>
           Book a Call
@@ -622,10 +599,11 @@
     </div>
   </section>
   <section id="niches">
-    <div class="section-eyebrow reveal">Who We Serve</div>
-    <h2 class="section-title reveal reveal-delay-1">Specialists,<br/>Not Generalists.</h2>
-    <p class="section-body reveal reveal-delay-2">We go deep in specific trades and service industries — which means we know exactly what makes your customers call.</p>
-    <div class="niche-grid">
+    <div class="sec-head">
+      <h2 class="section-eyebrow reveal">Who We Serve</h2>
+      <p class="section-body reveal reveal-delay-2">We go deep in specific trades and service industries — which means we know exactly what makes your customers call.</p>
+    </div>
+    <div class="niche-grid ruled">
       <div class="niche-card reveal">
         <div class="niche-icon">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.5V4a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0Z"/><path d="M12 17.5v.01"/></svg>
@@ -635,7 +613,7 @@
       </div>
       <div class="niche-card reveal reveal-delay-1">
         <div class="niche-icon">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
         </div>
         <h3>Flooring Businesses</h3>
         <p>Installation, hardwood, tile, and LVP contractors. We target homeowners mid-renovation and turn browse intent into in-home quote requests.</p>
@@ -650,9 +628,10 @@
     </div>
   </section>
   <section id="founders">
-    <div class="section-eyebrow reveal">The Founders</div>
-    <h2 class="section-title reveal reveal-delay-1">Two Founders,<br/>One Vision.</h2>
-    <div class="founders-layout">
+    <div class="sec-head">
+      <h2 class="section-eyebrow reveal">The Founders</h2>
+    </div>
+    <div class="founders-layout ruled">
       <div class="founder-card reveal">
         <div class="founder-avatar">LP</div>
         <div class="founder-name">Logan B. Padilla</div>
@@ -669,40 +648,44 @@
   </section>
   <!-- ===== BOOKING: GoHighLevel calendar (Zoom auto-attached) ===== -->
   <section id="booking">
-    <div class="section-eyebrow">Get Started</div>
-    <h2 class="section-title">Book Your Audit Call.</h2>
-    <p class="booking-sub">You'll get a calendar invite with your Zoom link the second you book — no back-and-forth, no pitch, just a straight conversation about your business.</p>
-    <div class="booking-perks">
-      <div class="booking-perk">
-        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        30 minutes
+    <div class="booking-grid">
+      <div class="booking-copy">
+        <div class="section-eyebrow">Get Started</div>
+        <h2 class="section-title">Book Your Audit Call.</h2>
+        <p class="booking-sub">You'll get a calendar invite with your Zoom link the second you book — no back-and-forth, no pitch, just a straight conversation about your business.</p>
+        <div class="booking-perks">
+          <div class="booking-perk">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            30 minutes
+          </div>
+          <div class="booking-perk">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="14" height="12"/><path d="m16 11 6-3v8l-6-3Z"/></svg>
+            Over Zoom
+          </div>
+          <div class="booking-perk">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M17 6.5C17 4.6 14.8 3.5 12 3.5S7 4.6 7 6.5s2.2 3 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg>
+            Completely free
+          </div>
+          <div class="booking-perk">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 7.9-8 9-4.8-1.1-8-4.5-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            No obligation
+          </div>
+        </div>
       </div>
-      <div class="booking-perk">
-        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 11 6-3v8l-6-3Z"/></svg>
-        Over Zoom
+      <div class="scheduler-shell">
+        <div class="booking-cta">
+          <h3>Book your audit call</h3>
+          <a href="#" class="btn-primary btn-book-now" id="bookNowBtn" target="_blank" rel="noopener">
+            Book Now
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="booking-perk">
-        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M17 6.5C17 4.6 14.8 3.5 12 3.5S7 4.6 7 6.5s2.2 3 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg>
-        Completely free
-      </div>
-      <div class="booking-perk">
-        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 7.9-8 9-4.8-1.1-8-4.5-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
-        No obligation
-      </div>
+      <p class="booking-footnote">
+        Can't find a time that works? Email us at
+        <a href="mailto:lt@tlperformancestrategies.com">lt@tlperformancestrategies.com</a>
+      </p>
     </div>
-    <div class="scheduler-shell">
-      <div class="booking-cta">
-        <h3>Book your audit call</h3>
-        <a href="#" class="btn-primary btn-book-now" id="bookNowBtn" target="_blank" rel="noopener">
-          Book Now
-          <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-    <p class="booking-footnote">
-      Can't find a time that works? Email us at
-      <a href="mailto:lt@tlperformancestrategies.com">lt@tlperformancestrategies.com</a>
-    </p>
   </section>
   <footer>
     <div>
